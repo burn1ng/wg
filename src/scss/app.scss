@@ -1,0 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+
+    background: url('./../img/pattern.jpg');
+    background-position-y: 23px;
+    background-size: contain;
+
+    height: 4000px;
+}
+
+.logo-wrapper {
+    padding: 31px 0;
+    text-align: center;
+}
+
+.logo {
+    display: inline-block;
+    width: 161px;
+    height: 89px;
+    background: url("./../img/logo.png");
+}
