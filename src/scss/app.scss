@@ -27,6 +27,17 @@ input[type="search"] {
     }
 }
 
+input {
+    caret-color: rgba(0,0,0,0.5);
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        background-color: #fff !important;
+    }
+}
+
 .body {
     padding: 0;
     margin: 0;
@@ -35,7 +46,7 @@ input[type="search"] {
     background-position-y: 23px;
     background-size: contain;
 
-    height: 4000px;
+    height: 100vh;
 }
 
 .container {

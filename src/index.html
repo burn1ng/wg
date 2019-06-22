@@ -11,10 +11,47 @@
         <section class="logo">
             <div class="logo__image"></div>
         </section>
+
+        <form class="search search--flexed" action="" method="POST">
+            <div class="search-input">
+                <input class="search-input__field search-input__field--condition_1"
+                       type="search" name="search" value="" required placeholder="Поиск"
+                       aria-label="Поиск по сайту" autocomplete="off">
+                <button class="search-input__close" type="reset"></button>
+            </div>
+            <input class="search__button" type="submit" name="submit" value="Найти">
+        </form>
+
+        <form class="search search--flexed" action="" method="POST">
+            <div class="search-input">
+                <input class="search-input__field search-input__field--condition_2"
+                       type="search" name="search" value="" required placeholder="Поиск"
+                       aria-label="Search through site content" autocomplete="off">
+                <button class="search-input__close" type="reset"></button>
+            </div>
+            <input class="search__button" type="submit" name="submit" value="Go">
+        </form>
+
+        <hr>
+
+        <form class="search search--tabled" action="" method="POST">
+            <div class="search-input">
+                <input class="search-input__field search-input__field--condition_2"
+                       type="search" name="search" value="" required placeholder="Поиск"
+                       aria-label="Поиск по сайту" autocomplete="off">
+                <button class="search-input__close" type="reset"></button>
+            </div>
+            <input class="search__button" type="submit" name="submit" value="Найти">
+        </form>
+
+        <hr>
+
         <form class="search search--floated" action="" method="POST">
             <input class="search__button" type="submit" name="submit" value="Найти">
             <div class="search-input">
-                <input class="search-input__field" type="search" name="search" value="" required placeholder="Search" />
+                <input class="search-input__field search-input__field--condition_2"
+                       type="search" name="search" value="" required placeholder="Поиск"
+                       aria-label="Поиск по сайту" autocomplete="off"/>
                 <button class="search-input__close" type="reset"></button>
             </div>
         </form>

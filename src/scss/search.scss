@@ -13,11 +13,12 @@ $search_button_border_size: 1px;
     $self: &;
 
     max-width: 435px;
+    padding-bottom: 6px;
 
     &__button {
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.48),
-        0 0 7px rgba(0, 0, 0, 0.07),
-        0 1px 2px rgba(0, 0, 0, 0.44);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.44),
+                    0 0 7px rgba(0, 0, 0, 0.07),
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.48);
 
         padding: 0 16px;
         font: 12px/#{$search_height - ($search_button_border_size * 2)} "Arial Narrow";
@@ -26,14 +27,14 @@ $search_button_border_size: 1px;
         text-transform: uppercase;
         background-color: #e6e6e6;
         background-image: linear-gradient(to top, rgba(177, 181, 183, 0.25) 0%, rgba(177, 181, 183, 0) 100%);
-        border-radius: 2px;
+        border-radius: 3px;
         border: 1px solid #fff;
 
         &:hover {
             cursor: pointer;
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.96),
-            0 0 7px rgba(0, 0, 0, 0.07),
-            0 1px 2px rgba(0, 0, 0, 0.44);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.44),
+                        0 0 7px rgba(0, 0, 0, 0.07),
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.96);
 
             color: #000;
             background-color: #f7f7f7;
@@ -43,6 +44,7 @@ $search_button_border_size: 1px;
     &-input {
         $search_input: &;
         position: relative;
+        padding-right: $search_input_spacing;
 
         &::before {
             display: inline-block;
@@ -58,9 +60,34 @@ $search_button_border_size: 1px;
 
         &__field {
             height: $search_height; /* crossbrowser input height needs strict value */
-            border: 1px solid transparent;
+            border-radius: 3px;
             outline: 0;
             padding: 0 (2px + $search_reset_size + $search_reset_right_space) 0 $search_find_icon_box_size;
+            color: #5c5e5f;
+            border-width: 1px;
+            border-style: solid;
+
+            &:active,
+            &:focus {
+                color: #373f45;
+                border-color: #fff;
+                background-color: #fff;
+                box-shadow: 0 2px 0 rgba(0, 0, 0, 0.11),
+                inset 0 2px 6px rgba(0, 0, 0, 0.69);
+            }
+
+            &--condition_1 {
+                border-color: rgba(239, 239, 239, 0.1);
+                background-color: rgba(251,251,251,0.1);
+            }
+
+            &--condition_2 {
+                border-color: rgba(239, 239, 239, 1);
+                background-color: rgba(251,251,251,1);
+                box-shadow: 0 2px 0 rgba(0, 0, 0, 0.11),
+                inset 0 2px 6px rgba(0, 0, 0, 0.49);
+
+            }
         }
 
         &__close {
@@ -92,7 +119,40 @@ $search_button_border_size: 1px;
 
         #{$self}-input {
             overflow: hidden;
-            padding-right: $search_input_spacing;
+            padding-bottom: 2px; /* don't cut shadow */
+
+            &__field {
+                width: 100%;
+            }
+        }
+    }
+
+    &--tabled {
+        display: table;
+
+        #{$self}__button {
+            display: table-cell;
+        }
+
+        #{$self}-input {
+            width: 100%;
+            display: table-cell;
+
+            &__field {
+                width: 100%;
+            }
+        }
+    }
+
+    &--flexed {
+        display: flex;
+
+        #{$self}__button {
+            flex-shrink: 0;
+        }
+
+        #{$self}-input {
+            flex: 1 1 100%;
 
             &__field {
                 width: 100%;
