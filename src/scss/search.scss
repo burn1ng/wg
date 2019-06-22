@@ -1,0 +1,102 @@
+$search_height: 38px;
+$search_input_spacing: 7px;
+
+$search_find_icon_box_size: 40px;
+$search_find_icon_size: 16px;
+
+$search_reset_size: 18px;
+$search_reset_right_space: 12px;
+
+$search_button_border_size: 1px;
+
+.search {
+    $self: &;
+
+    max-width: 435px;
+
+    &__button {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.48),
+        0 0 7px rgba(0, 0, 0, 0.07),
+        0 1px 2px rgba(0, 0, 0, 0.44);
+
+        padding: 0 16px;
+        font: 12px/#{$search_height - ($search_button_border_size * 2)} "Arial Narrow";
+        font-weight: 700;
+        color: #373f45;
+        text-transform: uppercase;
+        background-color: #e6e6e6;
+        background-image: linear-gradient(to top, rgba(177, 181, 183, 0.25) 0%, rgba(177, 181, 183, 0) 100%);
+        border-radius: 2px;
+        border: 1px solid #fff;
+
+        &:hover {
+            cursor: pointer;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.96),
+            0 0 7px rgba(0, 0, 0, 0.07),
+            0 1px 2px rgba(0, 0, 0, 0.44);
+
+            color: #000;
+            background-color: #f7f7f7;
+        }
+    }
+
+    &-input {
+        $search_input: &;
+        position: relative;
+
+        &::before {
+            display: inline-block;
+            width: $search_find_icon_size;
+            height: $search_find_icon_size;
+            background-image: url("./../img/search_icon.png");
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: ($search_find_icon_box_size / 2);
+            transform: translate(-50%, -50%);
+        }
+
+        &__field {
+            height: $search_height; /* crossbrowser input height needs strict value */
+            border: 1px solid transparent;
+            outline: 0;
+            padding: 0 (2px + $search_reset_size + $search_reset_right_space) 0 $search_find_icon_box_size;
+        }
+
+        &__close {
+            position: absolute;
+            top: 50%;
+            right: ($search_reset_right_space + $search_input_spacing);
+            transform: translateY(-50%);
+            outline: 0;
+            padding: 0;
+            margin: 0;
+            border: 1px solid transparent;
+            cursor: pointer;
+            width: $search_reset_size;
+            height: $search_reset_size;
+            background: url('./../img/reset.png') no-repeat center center;
+        }
+
+        &__field {
+            &:not(:valid) ~ #{$search_input}__close {
+                display: none;
+            }
+        }
+    }
+
+    &--floated {
+        #{$self}__button {
+            float: right;
+        }
+
+        #{$self}-input {
+            overflow: hidden;
+            padding-right: $search_input_spacing;
+
+            &__field {
+                width: 100%;
+            }
+        }
+    }
+}

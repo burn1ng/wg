@@ -2,7 +2,32 @@
     box-sizing: border-box;
 }
 
-body {
+/* clears the 'X' from input search for IE */
+input[type=search] {
+    &::-ms-clear {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    &::-ms-reveal {
+        display: none;
+        width : 0;
+        height: 0;
+    }
+}
+
+/* clears the 'X' from input search for Chrome */
+input[type="search"] {
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+        display: none;
+    }
+}
+
+.body {
     padding: 0;
     margin: 0;
 
@@ -13,14 +38,22 @@ body {
     height: 4000px;
 }
 
-.logo-wrapper {
-    padding: 31px 0;
-    text-align: center;
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 10px;
 }
 
 .logo {
-    display: inline-block;
-    width: 161px;
-    height: 89px;
-    background: url("./../img/logo.png");
+    padding: 31px 0;
+    text-align: center;
+
+    &__image {
+        display: inline-block;
+        width: 161px;
+        height: 89px;
+        background: url("./../img/logo.png");
+    }
 }
+
+@import "./search";

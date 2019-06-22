@@ -9,7 +9,7 @@ module.exports = ({is_dev_mode}) => {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
                     hmr: is_dev_mode,
-                    //reloadAll: true // if hmr does not work, this is a forceful method
+                    reloadAll: true // if hmr does not work, this is a forceful method
                 },
             },
             {

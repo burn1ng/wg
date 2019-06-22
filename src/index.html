@@ -6,9 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Test task for WG</title>
 </head>
-<body>
-    <div class="logo-wrapper">
-        <div class="logo"></div>
+<body class="body">
+    <div class="container">
+        <section class="logo">
+            <div class="logo__image"></div>
+        </section>
+        <form class="search search--floated" action="" method="POST">
+            <input class="search__button" type="submit" name="submit" value="Найти">
+            <div class="search-input">
+                <input class="search-input__field" type="search" name="search" value="" required placeholder="Search" />
+                <button class="search-input__close" type="reset"></button>
+            </div>
+        </form>
     </div>
 </body>
 </html>
