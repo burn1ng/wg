@@ -1,0 +1,41 @@
+$pseudo_box: 28px;
+$item_x_spacing: 8px;
+
+@mixin item_box() {
+    background: url("../../img/menu_pattern_bg.png") repeat top left;
+    border: 1px solid rgba(200, 200, 200, 0.85);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.04),
+    0 0 9px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px #fff;
+}
+
+@mixin disable_item_box_styles() {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+@mixin item() {
+    display: inline-block;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
+    font: 14px/28px "Arial";
+    font-weight: 400;
+    color: #707275;
+    padding: 0 $item_x_spacing 0 $pseudo_box;
+    position: relative;
+    text-transform: capitalize;
+    @include item_box();
+
+    &::before {
+        position: absolute;
+        top: 50%;
+        left: ($pseudo_box / 2);
+        transform: translate(-50%, -50%);
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 10px;
+    }
+}

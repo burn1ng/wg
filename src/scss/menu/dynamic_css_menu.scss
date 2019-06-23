@@ -1,33 +1,6 @@
-$pseudo_box: 28px;
+@import "variables";
 
-@mixin item() {
-    display: inline-block;
-    white-space: nowrap;
-    user-select: none;
-    cursor: pointer;
-    font: 14px/28px "Arial";
-    font-weight: 400;
-    color: #707275;
-    padding: 0 8px 0 $pseudo_box;
-    position: relative;
-    background: url("./../img/menu_pattern_bg.png") repeat top left;
-    text-transform: capitalize;
-    border: 1px solid rgba(200, 200, 200, 0.85);
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.04),
-    0 0 9px rgba(0, 0, 0, 0.12),
-    inset 0 0 0 1px #fff;
-
-    &::before {
-        position: absolute;
-        top: 50%;
-        left: ($pseudo_box / 2);
-        transform: translate(-50%, -50%);
-        display: inline-block;
-        content: '';
-        width: 12px;
-        height: 10px;
-    }
-}
+/* pure css alternative solution for menu with selecting tag behavior and states */
 
 .list {
     $self: &;
@@ -35,6 +8,7 @@ $pseudo_box: 28px;
     font-size: 0;
     display: flex;
     align-items: flex-start;
+    padding-bottom: 20px;
 
     &__input {
         display: none;
@@ -43,7 +17,7 @@ $pseudo_box: 28px;
             display: none;
 
             &::before {
-                background-image: url("./../img/burger.png");
+                background-image: url("../../img/burger.png");
             }
         }
 
@@ -56,10 +30,12 @@ $pseudo_box: 28px;
         &#tanks:checked ~ #{$self}__labels [for="tanks"],
         &#warplanes:checked ~ #{$self}__labels [for="warplanes"],
         &#warships:checked ~ #{$self}__labels [for="warships"] {
+            color: #2a2a2a;
+
             &::before {
                 width: 13px;
                 height: 6px;
-                background-image: url("./../img/arrow.png");
+                background-image: url("../../img/arrow.png");
             }
         }
     }
@@ -78,10 +54,13 @@ $pseudo_box: 28px;
         animation-delay: 0.2s;
         animation-fill-mode: forwards;
         animation-timing-function: step-start;
+
+        @include item_box();
     }
 
     &__label {
         @include item();
+        @include disable_item_box_styles();
     }
 
     &__current {
@@ -117,17 +96,19 @@ $pseudo_box: 28px;
             opacity: 1;
             flex-direction: row;
             flex-wrap: wrap;
-            max-width: 300px;
             animation-name: none;
+
+            @include disable_item_box_styles();
         }
 
         &__label {
             line-height: 22px;
             border-radius: 3px;
-            padding-left: 8px;
+            padding-left: $item_x_spacing;
 
             box-shadow: none;
             border-color: transparent;
+            background: none;
 
             &:not(:last-child)  {
                 margin-right: 5px;
@@ -138,13 +119,6 @@ $pseudo_box: 28px;
             }
         }
     }
-
-    @media (min-width: 901px) {
-        &__labels {
-            flex-wrap: nowrap;
-            max-width: 100%;
-        }
-    }
 }
 
 @keyframes hide_list {
@@ -153,38 +127,5 @@ $pseudo_box: 28px;
     }
     to {
         transform: scaleY(0);
-    }
-}
-
-.menu {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    font: 14px/30px "Arial";
-    font-weight: 400;
-    color: #707275;
-
-    &__item {
-        margin:20px;
-        padding-left: $pseudo_box;
-        position: relative;
-        background: url("./../img/menu_pattern_bg.png") repeat top left;
-        text-transform: capitalize;
-        border: 1px solid rgba(200, 200, 200, 0.85);
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.04),
-                    0 0 9px rgba(0, 0, 0, 0.12),
-                    inset 0 0 0 1px #fff;
-
-        &::before {
-            position: absolute;
-            top: 50%;
-            left: ($pseudo_box / 2);
-            transform: translate(-50%, -50%);
-            display: inline-block;
-            content: '';
-            width: 12px;
-            height: 10px;
-            background-image: url("./../img/burger.png");
-        }
     }
 }

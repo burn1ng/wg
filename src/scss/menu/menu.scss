@@ -1,0 +1,93 @@
+@import "variables";
+
+.menu {
+    $self: &;
+
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    font: 14px/28px "Arial";
+    font-weight: 400;
+    text-transform: capitalize;
+    white-space: nowrap;
+    user-select: none;
+    color: #707275;
+    background: url("../../img/menu_pattern_bg.png") repeat top left;
+    border: 1px solid rgba(200, 200, 200, 0.85);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.04),
+    0 0 9px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px #fff;
+
+    &__item {
+        display: none;
+        position: relative;
+        cursor: pointer;
+        padding: 0 $item_x_spacing 0 $pseudo_box;
+
+        &--selected {
+            display: block;
+
+            &::before {
+                position: absolute;
+                top: 50%;
+                left: ($pseudo_box / 2);
+                transform: translate(-50%, -50%);
+                display: inline-block;
+                content: '';
+                width: 12px;
+                height: 10px;
+                background-image: url("../../img/burger.png");
+            }
+        }
+    }
+
+    &--active {
+        #{$self}__item {
+            display: block;
+
+            &--selected {
+                color: #2a2a2a;
+
+                &::before {
+                    width: 13px;
+                    height: 6px;
+                    background-image: url("../../img/arrow.png");
+                }
+            }
+        }
+    }
+
+    @media (min-width: 801px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        background: none;
+        border: none;
+        box-shadow: none;
+
+        &,
+        &--active {
+            #{$self}__item {
+                display: block;
+                padding-left: $item_x_spacing;
+                line-height: 22px;
+                border-radius: 3px;
+
+                &--selected {
+                    color: #eff0f1;
+                    background: #707275;
+                }
+
+                &:not(:last-child) {
+                    margin-right: 5px;
+                }
+
+                &::before {
+                    display: none;
+                }
+            }
+        }
+    }
+}

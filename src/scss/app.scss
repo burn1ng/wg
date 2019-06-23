@@ -56,6 +56,8 @@ input {
 
     /* alternative solution for section dividers instead of customized <hr> elements
     position: relative;
+    padding: 30 10px;
+
     &:not(:last-of-type) {
         &:after {
             display: block;
@@ -91,7 +93,7 @@ input {
 
 .logo {
     text-align: center;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 
     &__image {
         display: inline-block;
@@ -102,4 +104,5 @@ input {
 }
 
 @import "./search";
-@import "./menu";
+@import "menu/dynamic_css_menu";
+@import "menu/menu";
