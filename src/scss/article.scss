@@ -1,0 +1,62 @@
+$paragraph_indent: 16px;
+
+.article {
+    padding: 0 44px;
+    font: 14px/18px "Arial", sans-serif;
+    column-count: 2;
+    column-gap: 45px;
+    column-rule: 1px dotted rgba(0,0,0,0.5);
+    color: #707275;
+
+    &__header {
+        font-size: 18px;
+        margin-bottom: 1em;
+        column-span: all;
+    }
+}
+
+.paragraph {
+    text-indent: $paragraph_indent;
+    margin: 0 0 20px;
+}
+
+.rules {
+    &,
+    &__nested {
+        margin: 0;
+    }
+
+    list-style-position: outside;
+    padding-left: $paragraph_indent;
+
+    &__item {
+        font-weight: 700;
+        color: #4d4e53;
+
+        &-heading,
+        &-content {
+            font-weight: 400;
+        }
+
+        &-heading {
+            line-height: 24px;
+        }
+
+        &-content {
+            color: #707275;
+        }
+    }
+
+    &__nested {
+        list-style-type: none;
+        padding: 0;
+
+        &-item {
+            &:before {
+                display: inline-block;
+                content: '-';
+                margin-right: 4px;
+            }
+        }
+    }
+}
