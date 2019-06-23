@@ -1,6 +1,8 @@
 $pseudo_box: 28px;
 
 @mixin item() {
+    display: inline-block;
+    white-space: nowrap;
     user-select: none;
     cursor: pointer;
     font: 14px/28px "Arial";
@@ -27,95 +29,17 @@ $pseudo_box: 28px;
     }
 }
 
-.select-box {
-    position: relative;
-    display: block;
-    width: 100%;
-    margin: 0 auto;
-
-    &__current {
-        position: relative;
-        cursor: pointer;
-        display: table;
-        outline: 0;
-
-        &:focus {
-            & + .select-box__list {
-                opacity: 1;
-                animation-name: none;
-
-                .select-box__option {
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-
-    &__input {
-        display: none;
-
-        &:checked + .select-box__input-text {
-            display: inline-flex;
-        }
-    }
-
-    &__input-text {
-        display: none;
-        margin: 0;
-        outline: 0;
-        @include item();
-
-        &::before {
-            background-image: url("./../img/burger.png");
-        }
-    }
-
-    &__list {
-        position: absolute;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        opacity: 0;
-        display: inline-flex;
-        flex-direction: column;
-
-        animation-name: hide_list;
-        animation-duration: 0.5s;
-        animation-delay: 0.5s;
-        animation-fill-mode: forwards;
-        animation-timing-function: step-start;
-    }
-
-    &__option {
-        display: block;
-        white-space: nowrap;
-        @include item();
-
-        &:hover,
-        &:focus {
-
-        }
-    }
-}
-
-@keyframes hide_list {
-    from {
-        transform: scaleY(1);
-    }
-    to {
-        transform: scaleY(0);
-    }
-}
-
 .list {
     $self: &;
     position: relative;
     font-size: 0;
+    display: flex;
+    align-items: flex-start;
 
     &__input {
         display: none;
 
-        &:not(:checked) ~ #{$self}__ghost [data-item] {
+        &:not(:checked) ~ [data-item] {
             display: none;
 
             &::before {
@@ -123,10 +47,10 @@ $pseudo_box: 28px;
             }
         }
 
-        &#tanks:checked ~ #{$self}__ghost [data-item="tanks"],
-        &#warplanes:checked ~ #{$self}__ghost [data-item="warplanes"],
-        &#warships:checked ~ #{$self}__ghost [data-item="warships"] {
-            display: inline-flex;
+        &#tanks:checked ~ [data-item="tanks"],
+        &#warplanes:checked ~ [data-item="warplanes"],
+        &#warships:checked ~ [data-item="warships"] {
+            display: block;
         }
 
         &#tanks:checked ~ #{$self}__labels [for="tanks"],
@@ -140,17 +64,95 @@ $pseudo_box: 28px;
         }
     }
 
-    &__item {
-        @include item();
-    }
-
     &__labels {
-        display: inline-flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
         flex-direction: column;
+        z-index: 2;
+        opacity: 0;
+
+        animation-name: hide_list;
+        animation-duration: 0.2s;
+        animation-delay: 0.2s;
+        animation-fill-mode: forwards;
+        animation-timing-function: step-start;
     }
 
     &__label {
         @include item();
+    }
+
+    &__current {
+        @include item();
+        z-index: 1;
+        outline: none;
+
+        &:focus {
+            & ~ #{$self}__labels {
+                opacity: 1;
+                animation-name: none;
+            }
+        }
+    }
+
+    @media (min-width: 801px) {
+        &__input {
+            &#tanks:checked ~ #{$self}__labels [for="tanks"],
+            &#warplanes:checked ~ #{$self}__labels [for="warplanes"],
+            &#warships:checked ~ #{$self}__labels [for="warships"] {
+                //border: 1px solid red;
+                color: #eff0f1;
+                background: #707275;
+            }
+        }
+
+        &__current {
+            display: none!important;
+        }
+
+        &__labels {
+            position: relative;
+            opacity: 1;
+            flex-direction: row;
+            flex-wrap: wrap;
+            max-width: 300px;
+            animation-name: none;
+        }
+
+        &__label {
+            line-height: 22px;
+            border-radius: 3px;
+            padding-left: 8px;
+
+            box-shadow: none;
+            border-color: transparent;
+
+            &:not(:last-child)  {
+                margin-right: 5px;
+            }
+
+            &::before {
+                display: none;
+            }
+        }
+    }
+
+    @media (min-width: 901px) {
+        &__labels {
+            flex-wrap: nowrap;
+            max-width: 100%;
+        }
+    }
+}
+
+@keyframes hide_list {
+    from {
+        transform: scaleY(1);
+    }
+    to {
+        transform: scaleY(0);
     }
 }
 

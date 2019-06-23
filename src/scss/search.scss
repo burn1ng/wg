@@ -25,8 +25,7 @@ $search_button_border_size: 1px;
         font-weight: 700;
         color: #373f45;
         text-transform: uppercase;
-        background-color: #e6e6e6;
-        background-image: linear-gradient(to top, rgba(177, 181, 183, 0.25) 0%, rgba(177, 181, 183, 0) 100%);
+        background: #e6e6e6 linear-gradient(to top, rgba(177, 181, 183, 0.25) 0%, rgba(177, 181, 183, 0) 100%);
         border-radius: 3px;
         border: 1px solid #fff;
 
@@ -64,8 +63,7 @@ $search_button_border_size: 1px;
             outline: 0;
             padding: 0 (2px + $search_reset_size + $search_reset_right_space) 0 $search_find_icon_box_size;
             color: #5c5e5f;
-            border-width: 1px;
-            border-style: solid;
+            border: 1px solid transparent;
 
             &:active,
             &:focus {
