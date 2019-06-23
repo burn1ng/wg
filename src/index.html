@@ -7,7 +7,7 @@
     <title>Test task for WG</title>
 </head>
 <body class="body">
-    <div class="container">
+    <section class="container">
         <section class="logo">
             <div class="logo__image"></div>
         </section>
@@ -55,6 +55,55 @@
                 <button class="search-input__close" type="reset"></button>
             </div>
         </form>
-    </div>
+    </section>
+    <section class="container">
+        <div class="select-box">
+            <div class="select-box__current" tabindex="1">
+                <input class="select-box__input" type="radio" id="tanks" value="tanks" name="menu" checked>
+                <span class="select-box__input-text">World of tanks</span>
+                <input class="select-box__input" type="radio" id="warplanes" value="warplanes" name="menu">
+                <span class="select-box__input-text">World of warplanes</span>
+                <input class="select-box__input" type="radio" id="warships" value="warships" name="menu">
+                <span class="select-box__input-text">World of warships</span>
+            </div>
+            <ul class="select-box__list">
+                <li class="select-box__list-item">
+                    <label class="select-box__option" for="tanks">World of tanks</label>
+                </li>
+                <li class="select-box__list-item">
+                    <label class="select-box__option" for="warplanes">World of warplanes</label>
+                </li>
+                <li class="select-box__list-item">
+                    <label class="select-box__option" for="warships">World of warships</label>
+                </li>
+            </ul>
+        </div>
+
+
+        <!--<div class="list">-->
+            <!--<input class="list__input" type="radio" name="menu" id="tanks" value="tanks">-->
+            <!--<input class="list__input" type="radio" name="menu" id="warplanes" value="warplanes" checked>-->
+            <!--<input class="list__input" type="radio" name="menu" id="warships" value="warships">-->
+
+            <!--<label class="list__ghost">-->
+                <!--<span class="list__item" data-item="tanks">World of tanks</span>-->
+                <!--<span class="list__item" data-item="warplanes">World of warplanes</span>-->
+                <!--<span class="list__item" data-item="warships">World of warships</span>-->
+            <!--</label>-->
+
+
+            <!--<div class="list__labels">-->
+                <!--<label class="list__label" for="tanks">World of tanks</label>-->
+                <!--<label class="list__label" for="warplanes">World of warplanes</label>-->
+                <!--<label class="list__label" for="warships">World of warships</label>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<ul class="menu">-->
+            <!--<li class="menu__item">World of tanks</li>-->
+            <!--<li class="menu__item">World of warplanes</li>-->
+            <!--<li class="menu__item">World of warships</li>-->
+        <!--</ul>-->
+    </section>
 </body>
 </html>

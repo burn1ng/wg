@@ -1,0 +1,188 @@
+$pseudo_box: 28px;
+
+@mixin item() {
+    user-select: none;
+    cursor: pointer;
+    font: 14px/28px "Arial";
+    font-weight: 400;
+    color: #707275;
+    padding: 0 8px 0 $pseudo_box;
+    position: relative;
+    background: url("./../img/menu_pattern_bg.png") repeat top left;
+    text-transform: capitalize;
+    border: 1px solid rgba(200, 200, 200, 0.85);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.04),
+    0 0 9px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px #fff;
+
+    &::before {
+        position: absolute;
+        top: 50%;
+        left: ($pseudo_box / 2);
+        transform: translate(-50%, -50%);
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 10px;
+    }
+}
+
+.select-box {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+
+    &__current {
+        position: relative;
+        cursor: pointer;
+        display: table;
+        outline: 0;
+
+        &:focus {
+            & + .select-box__list {
+                opacity: 1;
+                animation-name: none;
+
+                .select-box__option {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    &__input {
+        display: none;
+
+        &:checked + .select-box__input-text {
+            display: inline-flex;
+        }
+    }
+
+    &__input-text {
+        display: none;
+        margin: 0;
+        outline: 0;
+        @include item();
+
+        &::before {
+            background-image: url("./../img/burger.png");
+        }
+    }
+
+    &__list {
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        opacity: 0;
+        display: inline-flex;
+        flex-direction: column;
+
+        animation-name: hide_list;
+        animation-duration: 0.5s;
+        animation-delay: 0.5s;
+        animation-fill-mode: forwards;
+        animation-timing-function: step-start;
+    }
+
+    &__option {
+        display: block;
+        white-space: nowrap;
+        @include item();
+
+        &:hover,
+        &:focus {
+
+        }
+    }
+}
+
+@keyframes hide_list {
+    from {
+        transform: scaleY(1);
+    }
+    to {
+        transform: scaleY(0);
+    }
+}
+
+.list {
+    $self: &;
+    position: relative;
+    font-size: 0;
+
+    &__input {
+        display: none;
+
+        &:not(:checked) ~ #{$self}__ghost [data-item] {
+            display: none;
+
+            &::before {
+                background-image: url("./../img/burger.png");
+            }
+        }
+
+        &#tanks:checked ~ #{$self}__ghost [data-item="tanks"],
+        &#warplanes:checked ~ #{$self}__ghost [data-item="warplanes"],
+        &#warships:checked ~ #{$self}__ghost [data-item="warships"] {
+            display: inline-flex;
+        }
+
+        &#tanks:checked ~ #{$self}__labels [for="tanks"],
+        &#warplanes:checked ~ #{$self}__labels [for="warplanes"],
+        &#warships:checked ~ #{$self}__labels [for="warships"] {
+            &::before {
+                width: 13px;
+                height: 6px;
+                background-image: url("./../img/arrow.png");
+            }
+        }
+    }
+
+    &__item {
+        @include item();
+    }
+
+    &__labels {
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    &__label {
+        @include item();
+    }
+}
+
+.menu {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    font: 14px/30px "Arial";
+    font-weight: 400;
+    color: #707275;
+
+    &__item {
+        margin:20px;
+        padding-left: $pseudo_box;
+        position: relative;
+        background: url("./../img/menu_pattern_bg.png") repeat top left;
+        text-transform: capitalize;
+        border: 1px solid rgba(200, 200, 200, 0.85);
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.04),
+                    0 0 9px rgba(0, 0, 0, 0.12),
+                    inset 0 0 0 1px #fff;
+
+        &::before {
+            position: absolute;
+            top: 50%;
+            left: ($pseudo_box / 2);
+            transform: translate(-50%, -50%);
+            display: inline-block;
+            content: '';
+            width: 12px;
+            height: 10px;
+            background-image: url("./../img/burger.png");
+        }
+    }
+}
