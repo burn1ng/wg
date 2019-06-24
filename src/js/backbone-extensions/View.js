@@ -135,6 +135,10 @@ export default class View extends Backbone.View {
         return invoke(this, 'on_rendered');
     }
 
+    tagName() {
+        return invoke(this, 'tag_name') || 'div';
+    }
+
     /**
      * Append subview to selector
      *
@@ -161,6 +165,14 @@ export default class View extends Backbone.View {
             selector.append(document_fragment);
             this._show_subviews(views);
         }
+    }
+
+    /**
+     * Remove subviews and clear DOM
+     */
+    empty() {
+        this.remove_subviews();
+        this.$el.empty();
     }
 
     /**

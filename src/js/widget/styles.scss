@@ -1,4 +1,20 @@
 
-h1 {
-    color: red;
+.widget {
+    font: 12px/1.5 "Arial", sans-serif;
+
+    &__heading {
+        font-size: 16px;
+        margin: 1em 0;
+        color: #242424;
+    }
+
+    &__change-btn {
+        cursor: pointer;
+        color: #dedede;
+        border: none;
+        background: green;
+        padding: 7px 12px;
+
+        margin-bottom: 30px;
+    }
 }

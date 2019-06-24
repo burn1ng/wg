@@ -1,0 +1,33 @@
+.selection-button {
+    display: flex;
+    align-items: center;
+    background-color: black;
+    padding: 0;
+    border: 0;
+    outline: none;
+
+    &__title {
+        display: inline-block;
+        padding: 7px 0 7px 12px;
+        color: #dedede;
+
+        &-text {
+            display: inline-block;
+            padding-right: 7px;
+            border-right: 1px solid white;
+        }
+    }
+
+    &__remove {
+        padding: 7px 12px;
+        cursor: pointer;
+        border: 0;
+        background: transparent;
+        color: white;
+        outline: none;
+
+        &:hover {
+            color: red;
+        }
+    }
+}

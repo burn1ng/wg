@@ -1,15 +1,27 @@
 import View from '../backbone-extensions/View';
-import SelectionButtons from './selection/SelectionButtons';
+import Selection from './selection/Selection';
+import SelectionCollection from './selection/SelectionCollection';
+import SelectionStatus from './status/SelectionStatus';
+import SelectionEditor from './editor/SelectionEditor';
 
 import template from './template.html';
 import './styles.scss';
-import ElementsCollection from './ElementsCollection';
+
 
 export default class Widget extends View {
-    constructor({data}) {
+    /**
+     *
+     * @param {ElementsCollection} collection
+     */
+    constructor(collection) {
         super();
 
-        this._elements = new ElementsCollection(data);
+        this._initial_collection = collection;
+        this._selection_collection = SelectionCollection.create_by_elements_collection(this._initial_collection);
+
+        // for QA
+        window.initial = this._initial_collection;
+        window.selection = this._selection_collection;
     }
 
     class_name() {
@@ -18,31 +30,36 @@ export default class Widget extends View {
 
     ui() {
         return {
-            $test: '[js-test]'
+            $change_btn: '[js-change]'
         };
     }
 
     events() {
         return {
-            'click': '_test_click'
-        };
+            'click @ui.$change_btn': this._render_selection_edit
+        }
     }
 
     render() {
-        this.$el.html(
-            template({test_var: 'Hello!!!'})
-        )
+        this.$el.html(template());
     }
 
-    on_rendered() {
+    subviewCreators() {
+        let collection = this._selection_collection;
+
+        return {
+            'selection-status'() {
+                return new SelectionStatus(collection);
+            },
+            'selection'() {
+                return new Selection(collection);
+            }
+        };
+    }
+
+    _render_selection_edit() {
         this.append(
-            new SelectionButtons(),
-            this.ui.$test
-        )
-    }
-
-    _test_click(e) {
-        console.log(e.target);
-        console.log(e.currentTarget);
+            new SelectionEditor(this._initial_collection)
+        );
     }
 }

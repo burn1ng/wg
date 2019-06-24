@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Widget from './widget/Widget';
+import ElementsCollection from './widget/ElementsCollection';
 
 const APP_CONTAINER_CSS = '#app';
 
@@ -9,7 +10,13 @@ export default class Core {
             .then(
                 data => {
                     let app_node = $(APP_CONTAINER_CSS);
-                    let view = new Widget({data});
+
+                    data[0].selected = true;
+                    data[1].selected = true;
+
+                    let view = new Widget(
+                        new ElementsCollection(data)
+                    );
                     view.render();
 
                     app_node.append(view.$el);

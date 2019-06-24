@@ -1,0 +1,12 @@
+.selection {
+    display: flex;
+    align-items: center;
+
+    &:not(:empty) {
+        padding-bottom: 20px;
+    }
+
+    & > *:not(:last-child) {
+        margin-right: 10px;
+    }
+}
