@@ -1,4 +1,9 @@
 import './scss/app.scss';
-import hello from './js/main';
+import $ from 'jquery';
+import './js/backbone-extensions/View';
+import Core from './js/Core';
 
-hello();
+//For QA purposes
+window.$ = $;
+
+Core.init();
