@@ -21,7 +21,9 @@ export default class Core {
         let data = [];
 
         for (let i = 1; i <= 10; i++) {
-            data.push(`Элемент ${i}`);
+            data.push({
+                title: `Элемент ${i}`
+            });
         }
 
         return Promise.resolve(data);
