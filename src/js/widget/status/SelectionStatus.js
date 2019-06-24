@@ -23,18 +23,22 @@ export default class SelectionStatus extends View {
 
     render() {
         this.$el.append(template({
-            count: this._selection_collection.length,
+            count: this._count,
             entities_name: this._entities_name
         }))
     }
 
     on_rendered() {
-        this.listenTo(this._selection_collection, 'update', this._refresh_ui);
+        this.listenTo(this._selection_collection, 'change:selected', this._refresh_ui);
     }
 
     _refresh_ui() {
-        this.ui.$count.html(this._selection_collection.length);
+        this.ui.$count.html(this._count);
         this.ui.$entity_name.html(this._entities_name);
+    }
+
+    get _count() {
+        return this._selection_collection.get_selected().length;
     }
 
     get _entities_name() {

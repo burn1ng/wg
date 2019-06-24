@@ -1,0 +1,49 @@
+.selection-editor {
+    max-width: 700px;
+    background: #3f3f3f;
+    color: white;
+
+    &__header {
+        user-select: none;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #a9a9a9;
+
+        &-name {
+            flex-grow: 1;
+            flex-shrink: 1;
+            padding: 10px 0 10px 30px;
+        }
+    }
+
+    &__close {
+        padding: 10px;
+        cursor: pointer;
+        flex-shrink: 0;
+
+        &:hover {
+            color: red;
+        }
+    }
+
+    &__content {
+        padding: 10px 30px 30px 30px;
+    }
+
+    &__list {
+        padding: 5px 0;
+    }
+
+    &__control {
+        cursor: pointer;
+        border: none;
+        background: green;
+        color: white;
+        padding: 7px 12px;
+
+        &:hover {
+            background-color: rgba(green, 0.8);
+        }
+    }
+}

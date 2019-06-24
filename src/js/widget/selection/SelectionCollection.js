@@ -1,4 +1,5 @@
 import Collection from '../../backbone-extensions/Collection';
+import ElementModel from '../ElementModel';
 
 export default class SelectionCollection extends Collection {
     /**
@@ -8,7 +9,8 @@ export default class SelectionCollection extends Collection {
      */
     static create_by_elements_collection(collection) {
         return new this(
-            collection.models.filter(model => !!model.selected),
+            collection.get_selected()
+                      .map(model => new ElementModel(model.attributes)),
             collection
         );
     }
@@ -17,5 +19,9 @@ export default class SelectionCollection extends Collection {
         super(element_models);
 
         this._initial_collection = initial_collection;
+    }
+
+    get_selected() {
+        return this.models.filter(model => !!model.selected);
     }
 }

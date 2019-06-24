@@ -1,5 +1,5 @@
 import View from '../backbone-extensions/View';
-import Selection from './selection/Selection';
+import SelectionButtons from './selection/SelectionButtons';
 import SelectionCollection from './selection/SelectionCollection';
 import SelectionStatus from './status/SelectionStatus';
 import SelectionEditor from './editor/SelectionEditor';
@@ -17,11 +17,9 @@ export default class Widget extends View {
         super();
 
         this._initial_collection = collection;
-        this._selection_collection = SelectionCollection.create_by_elements_collection(this._initial_collection);
 
         // for QA
         window.initial = this._initial_collection;
-        window.selection = this._selection_collection;
     }
 
     class_name() {
@@ -36,7 +34,7 @@ export default class Widget extends View {
 
     events() {
         return {
-            'click @ui.$change_btn': this._render_selection_edit
+            'click @ui.$change_btn': this._toggle_selection_editor
         }
     }
 
@@ -45,21 +43,27 @@ export default class Widget extends View {
     }
 
     subviewCreators() {
-        let collection = this._selection_collection;
+        let collection = this._initial_collection;
 
         return {
-            'selection-status'() {
+            'status'() {
                 return new SelectionStatus(collection);
             },
-            'selection'() {
-                return new Selection(collection);
+            'buttons'() {
+                return new SelectionButtons(collection);
             }
         };
     }
 
-    _render_selection_edit() {
-        this.append(
-            new SelectionEditor(this._initial_collection)
-        );
+    _toggle_selection_editor() {
+        if (this._editor_window) {
+            this._editor_window.destroy();
+            this._editor_window = null;
+        } else {
+            this._editor_window = new SelectionEditor({
+                initial_collection: this._initial_collection
+            });
+            this.append(this._editor_window);
+        }
     }
 }

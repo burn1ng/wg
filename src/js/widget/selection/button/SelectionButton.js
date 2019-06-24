@@ -4,11 +4,10 @@ import template from './template.html';
 import './styles.scss';
 
 export default class SelectionButton extends View {
-    constructor({model, collection}) {
+    constructor({model}) {
         super();
 
         this._model = model;
-        this._collection = collection;
     }
 
     ui() {
@@ -39,6 +38,5 @@ export default class SelectionButton extends View {
 
     _handle_selection_remove() {
         this._model.selected = false;
-        this._collection.remove(this._model);
     }
 }

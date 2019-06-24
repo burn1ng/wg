@@ -1,0 +1,46 @@
+
+.selection-search {
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+        flex-grow: 1;
+        flex-shrink: 1;
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+
+    }
+
+    &__label {
+        user-select: none;
+        color: white;
+        margin-right: 10px;
+        min-width: 50px;
+    }
+
+    &__select,
+    &__input {
+        min-width: 100px;
+        width: 100%;
+        border: none;
+        background: white;
+        padding: 5px 15px;
+    }
+
+    &__select {
+        cursor: pointer;
+    }
+
+    @media (min-width: 570px) {
+        flex-direction: row;
+
+        &__item {
+            padding-right: 20px;
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+    }
+}
