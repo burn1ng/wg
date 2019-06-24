@@ -3,7 +3,7 @@ $paragraph_indent: 16px;
 .article {
     padding: 0 44px;
     font: 14px/18px "Arial", sans-serif;
-    column-count: 2;
+    column-count: 1;
     column-gap: 45px;
     column-rule: 1px dotted rgba(0,0,0,0.5);
     color: #707275;
@@ -12,6 +12,10 @@ $paragraph_indent: 16px;
         font-size: 18px;
         margin-bottom: 1em;
         column-span: all;
+    }
+
+    @media all and (min-width: 620px) {
+        column-count: 2;
     }
 }
 
