@@ -34,7 +34,7 @@ export default class Widget extends View {
 
     events() {
         return {
-            'click @ui.$change_btn': this._toggle_selection_editor
+            'mousedown @ui.$change_btn': this._toggle_selection_editor
         }
     }
 

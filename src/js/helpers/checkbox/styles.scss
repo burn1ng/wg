@@ -1,0 +1,72 @@
+@mixin svg_icon($fill: null, $color: null, $width: null, $height: null) {
+    svg {
+        @if $fill {
+            fill: $fill;
+        }
+
+        @if $color {
+            color: $color;
+        }
+
+        @if $width {
+            width: $width;
+        }
+
+        @if $height {
+            height: $height;
+        }
+
+        @content;
+    }
+}
+
+$indicator-size: 15px;
+
+.checkbox {
+    $self: &;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0; // override browser defaults for label
+    cursor: pointer;
+
+    &__input {
+        position: absolute;
+        visibility: hidden;
+        z-index: -1; // Put the input behind the label so it doesn't overlay text
+
+        &:checked ~ #{$self}__indicator {
+            @include svg_icon(null, #884b8f);
+        }
+
+        &:disabled {
+            ~ #{$self}__indicator,
+            ~ #{$self}__title {
+                user-select: none;
+                opacity: 0.3;
+                cursor: default;
+            }
+
+            ~ #{$self}__indicator {
+                & .icon {
+                    cursor: default;
+                }
+            }
+        }
+    }
+
+    &__indicator {
+        padding-right: (18px - $indicator-size);
+        @include svg_icon(#BCBBC8, transparent, $indicator-size, $indicator-size);
+    }
+
+    &__title {
+        user-select: none;
+        font-size: 12px;
+        display: flex; // for case when in label not only text, but some template with different elements
+        align-items: center;
+        line-height: 1.5;
+        white-space: nowrap;
+    }
+}

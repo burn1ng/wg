@@ -9,8 +9,7 @@ export default class SelectionCollection extends Collection {
      */
     static create_by_elements_collection(collection) {
         return new this(
-            collection.get_selected()
-                      .map(model => new ElementModel(model.attributes)),
+            collection.get_selected().map(model => new ElementModel(model.attributes)),
             collection
         );
     }

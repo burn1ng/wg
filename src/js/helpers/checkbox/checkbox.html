@@ -1,0 +1,16 @@
+<%
+var name_attr = name !== undefined ? ' name="' + name + '"' : '';
+var value_attr = value !== undefined ? ' value="' + value + '"' : '';
+%>
+
+<label class="checkbox<%= (' ' + label_css) ? label_css : '' %>" title="<%= tooltip %>">
+    <input class="checkbox__input"
+           type="checkbox"<%= name_attr %><%= value_attr %>
+    <%= checked ? 'checked' : '' %>
+    <%= disabled ? 'disabled' : '' %>
+    <%= attrs ? attrs : '' %> >
+    <span class="checkbox__indicator"><%= svg_icon %></span>
+    <% if(title) { %>
+    <span class="checkbox__title"><%= title %></span>
+    <% } %>
+</label>

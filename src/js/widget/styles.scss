@@ -1,5 +1,6 @@
 
 .widget {
+    height: 730px; /* avoid jumps for relative positioned SelectionEditor, visual temp fix */
     font: 12px/1.5 "Arial", sans-serif;
 
     &__heading {

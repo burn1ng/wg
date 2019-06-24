@@ -44,7 +44,7 @@ export default class SelectionEditor extends View {
     }
 
     subviewCreators() {
-        let matched_collection = {}; // TODO: build matched by initial
+        let matched_collection = this._initial_collection; // TODO: build matched by initial
         //let selection_collection = SelectionCollection.create_by_elements_collection(this._initial_collection);
 
         return {

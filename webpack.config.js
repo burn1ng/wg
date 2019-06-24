@@ -8,6 +8,7 @@ const JsLoader = require('./webpack/JsLoader');
 const TemplateLoader = require('./webpack/TemplateLoader');
 const css_loaders = require('./webpack/css_loaders');
 const url_loader = require('./webpack/url_loader');
+const SvgLoader = require('./webpack/SvgLoader');
 
 const is_dev_mode = process.env.NODE_ENV !== 'production';
 
@@ -40,6 +41,7 @@ module.exports = {
             JsLoader,
             css_loaders({is_dev_mode}),
             url_loader({is_dev_mode}),
+            SvgLoader,
             TemplateLoader
         ],
     },
