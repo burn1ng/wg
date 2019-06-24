@@ -1,7 +1,7 @@
 {
     "name": "wg",
     "version": "1.0.0",
-    "description": "test task for wargaming",
+    "description": "Test task for Wargaming",
     "main": "index.js",
     "scripts": {
         "start": "webpack-dev-server  --display-error-details --watch",
@@ -48,7 +48,6 @@
         "webpack-dev-server": "^3.7.2"
     },
     "dependencies": {
-        "backbone": "^1.4.0",
         "jquery": "^3.4.1",
         "lodash-es": "^4.17.11"
     }

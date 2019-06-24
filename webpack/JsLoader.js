@@ -5,11 +5,18 @@ module.exports = {
         {
             loader: 'babel-loader',
             options: {
-                presets: ['@babel/preset-env']
+                presets: [
+                    [
+                        '@babel/preset-env',
+                        {
+                            modules: false
+                        }
+                    ]
+                ]
             }
         },
-        {
-            loader: 'eslint-loader'
-        }
+        // {
+        //     loader: 'eslint-loader'
+        // }
     ]
 };

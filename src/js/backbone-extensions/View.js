@@ -1,4 +1,4 @@
-import Backbone from 'backbone';
+import Backbone from './../plugins/backbone';
 import {
     each as _each,
     cloneDeep as _cloneDeep,
@@ -104,9 +104,35 @@ function invoke(context, fn, args) {
 
 export default class View extends Backbone.View {
     preinitialize(props) {
-        super.preinitialize(props);
+        this.rendered = false;
+
+        let new_key;
+        if (typeof this.super === 'undefined') {
+            this.super = this.constructor.__super__;
+        }
+
+        // extend this with options variables
+        _each(props, function (value, key) {
+            new_key = (key[0] !== '_')
+                ? '_' + key
+                : key;
+
+            this[new_key] = value;
+        }, this);
+
+
         this._initialize_variables();
         this._redefine_methods();
+
+        super.preinitialize(props);
+    }
+
+    className() {
+        return invoke(this, 'class_name');
+    }
+
+    onRendered() {
+        return invoke(this, 'on_rendered');
     }
 
     /**
@@ -127,13 +153,61 @@ export default class View extends Backbone.View {
 
         views.forEach(view => {
             view.render();
-            this.register_subview(view);
+            this._register_subview(view);
             document_fragment.append(view.$el);
         });
 
         if (append_to_dom) {
             selector.append(document_fragment);
-            this.show_subviews(views);
+            this._show_subviews(views);
+        }
+    }
+
+    /**
+     * Iterate each subview
+     * @param callback
+     * @param [context=this]
+     */
+    each_subview(callback, context) {
+        context = context || this;
+
+        _each(this.subviews, function () {
+            return callback.apply(context, arguments);
+        });
+    }
+
+    /**
+     * Get subview by id
+     * @param id
+     * @returns {*}
+     */
+    get_subview(id) {
+        return this.subviews && this.subviews[id];
+    }
+
+    destroy() {
+        this.remove();
+        this.is_destroyed = true;
+
+        if (this.parent_view) {
+            this.parent_view.each_subview((subview, index) => {
+                if (subview === this) {
+                    delete this.parent_view.subviews[index];
+                    return false;
+                }
+            });
+        }
+    }
+
+    /**
+     * Removes all subviews and cleans up references in this.subviews.
+     */
+    remove_subviews() {
+        if (this.subviews) {
+            Object.keys(this.subviews).forEach(subview_id =>
+                this._remove_subview(subview_id)
+            );
+            delete this.subviews;
         }
     }
 
@@ -173,15 +247,15 @@ export default class View extends Backbone.View {
             container[jquery_action](view.$el);
         }
 
-        this.register_subview(view);
+        this._register_subview(view);
         if (append_to_dom) {
-            this.show_subviews(view);
+            this._show_subviews(view);
         }
 
         return result || this;
     }
 
-    register_subview(view) {
+    _register_subview(view) {
         if (!view) {
             return;
         }
@@ -194,6 +268,7 @@ export default class View extends Backbone.View {
 
     _initialize_variables() {
         this.parent_view = null;
+
         this.ui = _cloneDeep(_result(this, 'ui') || {});
         this.children_ui = Object.assign({}, _result(this, 'children_ui'));
         this.ui_selectors = _cloneDeep(this.ui);
@@ -249,7 +324,7 @@ export default class View extends Backbone.View {
                 return;
             }*/
             original_delegateEvents_method.apply(this);
-            this.delegate_children_events();
+            this._delegate_children_events();
             return this;
         };
     }
@@ -283,12 +358,9 @@ export default class View extends Backbone.View {
 
         if (is_promise(on_rendered)) {
             return on_rendered.then(() => {
-                this.rendered_full = true;
                 return result;
             });
         }
-
-        this.rendered_full = true;
 
         return result === undefined
             ? this
@@ -322,6 +394,7 @@ export default class View extends Backbone.View {
     }
 
     /**
+     * @description
      * Changes @ui patterns to real .querySelector selector.
      * Also provided changing of "ui" directive to attribute equivalent '[ui="some-ui-name"]'
      *
@@ -391,7 +464,7 @@ export default class View extends Backbone.View {
         this[events_filed] = events;
     }
 
-    delegate_children_events() {
+    _delegate_children_events() {
         let events = Object.assign({}, _result(this, 'children_events'));
 
         if (!events) {
@@ -409,7 +482,7 @@ export default class View extends Backbone.View {
             }
 
             this.delegate(match[1], match[2], (event) => {
-                let child_view = this.get_children_view_to_process_event(event);
+                let child_view = this._get_children_view_to_process_event(event);
                 if (!child_view) {
                     return;
                 }
@@ -426,7 +499,7 @@ export default class View extends Backbone.View {
         return this;
     }
 
-    get_children_view_to_process_event(event) {
+    _get_children_view_to_process_event(event) {
         if (!this.subviews) {
             return;
         }
@@ -509,7 +582,7 @@ export default class View extends Backbone.View {
         let on_rendered = invoke(this, 'onRendered');
         invoke(this, 'onSubviewsRendered');
 
-        this.show_subviews(subview_to_render);
+        this._show_subviews(subview_to_render);
 
         return on_rendered;
     }
@@ -518,7 +591,7 @@ export default class View extends Backbone.View {
      *
      * @param {View|Array.<View>} subviews
      */
-    show_subviews(subviews) {
+    _show_subviews(subviews) {
         let _onShow = this.onShow;
 
         if (!Array.isArray(subviews)) {
@@ -578,64 +651,16 @@ export default class View extends Backbone.View {
         });
     }
 
-    destroy() {
-        this.remove();
-        this.is_destroyed = true;
+    _remove_subview(id) {
+        const subview_to_remove = this.get_subview(id);
 
-        if (this.parent_view) {
-            this.parent_view.each_subview((subview, index) => {
-                if (subview === this) {
-                    delete this.parent_view.subviews[index];
-                    return false;
-                }
-            });
-        }
-    }
-
-    /**
-     * Iterate each subview
-     * @param callback
-     * @param [context=this]
-     */
-    each_subview(callback, context) {
-        context = context || this;
-
-        _each(this.subviews, function () {
-            return callback.apply(context, arguments);
-        });
-    }
-
-    /**
-     * Removes all subviews and cleans up references in this.subviews.
-     */
-    remove_subviews() {
-        if (this.subviews) {
-            Object.keys(this.subviews).forEach(subview_id =>
-                this.remove_subview(subview_id)
-            );
-            delete this.subviews;
-        }
-    }
-
-    remove_subview(id) {
-        const remove_subview = this.get_subview(id);
-
-        if (!remove_subview) {
+        if (!subview_to_remove) {
             return false;
         }
 
-        remove_subview.destroy();
+        subview_to_remove.destroy();
         delete this.subviews[id];
 
         return true;
-    }
-
-    /**
-     * Get subview by id
-     * @param id
-     * @returns {*}
-     */
-    get_subview(id) {
-        return this.subviews && this.subviews[id];
     }
 }
