@@ -3,6 +3,8 @@ import View from '../../../backbone-extensions/View';
 import './styles.scss';
 import SwitchableCheckbox from '../../../components/SwitchableCheckbox';
 
+const COMPONENT_CSS = 'selection-list';
+
 export default class SelectionList extends View {
     constructor({matched_collection}) {
         super();
@@ -11,7 +13,7 @@ export default class SelectionList extends View {
     }
 
     class_name() {
-        return 'selection-list';
+        return COMPONENT_CSS;
     }
 
     on_rendered() {
@@ -19,8 +21,9 @@ export default class SelectionList extends View {
             model => new SwitchableCheckbox({
                 props: ['selected'],
                 model,
-                title: model.title,
-                checked: !!model.selected
+                label_css: `${COMPONENT_CSS}__item`,
+                theme: SwitchableCheckbox.THEMES.BLOCK,
+                title: model.title
             })
         );
 

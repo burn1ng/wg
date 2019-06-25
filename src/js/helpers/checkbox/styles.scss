@@ -34,6 +34,9 @@ $indicator-size: 15px;
     &__input {
         position: absolute;
         visibility: hidden;
+        width: 0;
+        height: 0;
+        margin: 0;
         z-index: -1; // Put the input behind the label so it doesn't overlay text
 
         &:checked ~ #{$self}__indicator {
@@ -57,7 +60,7 @@ $indicator-size: 15px;
     }
 
     &__indicator {
-        padding-right: (18px - $indicator-size);
+        padding-right: 6px;
         @include svg_icon(#BCBBC8, transparent, $indicator-size, $indicator-size);
     }
 

@@ -1,4 +1,13 @@
 
 .switchable-checkbox {
     display: inline-flex;
+
+    &--block {
+        display: flex;
+
+        > .checkbox,
+        .checkbox__title {
+            width: 100%;
+        }
+    }
 }

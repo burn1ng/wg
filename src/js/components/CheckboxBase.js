@@ -11,7 +11,7 @@ export default class CheckboxBase extends View {
     }
 
     constructor(options) {
-        super();
+        super(options);
 
         this._options = Object.assign({
             title: '',
@@ -52,9 +52,5 @@ export default class CheckboxBase extends View {
             input.prop('checked', value);
             input.change();
         }
-    }
-
-    get properties() {
-        return this._options;
     }
 }

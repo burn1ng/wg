@@ -1,9 +1,10 @@
 <%
 var name_attr = name !== undefined ? ' name="' + name + '"' : '';
 var value_attr = value !== undefined ? ' value="' + value + '"' : '';
+var title_attr = tooltip !== undefined ? ' title="' + tooltip + '"' : '';
 %>
 
-<label class="checkbox<%= (' ' + label_css) ? label_css : '' %>" title="<%= tooltip %>">
+<label class="checkbox<%= label_css ? (' ' + label_css) : '' %>"<%= title_attr %>>
     <input class="checkbox__input" js-input
            type="checkbox"<%= name_attr %><%= value_attr %>
     <%= checked ? 'checked' : '' %>
