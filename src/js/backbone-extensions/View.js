@@ -102,42 +102,36 @@ function invoke(context, fn, args) {
     }
 }
 
-export default class View extends Backbone.View {
+export default Backbone.View.extend({
     preinitialize(props) {
         this.rendered = false;
 
-        let new_key;
-        if (typeof this.super === 'undefined') {
-            this.super = this.constructor.__super__;
-        }
-
         // extend this with options variables
+        let new_key;
+        let self = this;
         _each(props, function (value, key) {
             new_key = (key[0] !== '_')
                 ? '_' + key
                 : key;
 
-            this[new_key] = value;
-        }, this);
-
+            self[new_key] = value;
+        });
 
         this._initialize_variables();
         this._redefine_methods();
-
-        super.preinitialize(props);
-    }
+    },
 
     className() {
         return invoke(this, 'class_name');
-    }
+    },
 
     onRendered() {
         return invoke(this, 'on_rendered');
-    }
+    },
 
     tagName() {
         return invoke(this, 'tag_name') || 'div';
-    }
+    },
 
     /**
      * Append subview to selector
@@ -150,7 +144,7 @@ export default class View extends Backbone.View {
      */
     append(view, selector, attributes, append_to_dom = true) {
         return this._insert_new_subview(view, selector, 'append', attributes, append_to_dom);
-    }
+    },
 
     append_list(views, selector = this.$el, append_to_dom = true) {
         let document_fragment = $(document.createDocumentFragment());
@@ -165,7 +159,7 @@ export default class View extends Backbone.View {
             selector.append(document_fragment);
             this._show_subviews(views);
         }
-    }
+    },
 
     /**
      * Remove subviews and clear DOM
@@ -173,7 +167,7 @@ export default class View extends Backbone.View {
     empty() {
         this.remove_subviews();
         this.$el.empty();
-    }
+    },
 
     /**
      * Iterate each subview
@@ -186,7 +180,7 @@ export default class View extends Backbone.View {
         _each(this.subviews, function () {
             return callback.apply(context, arguments);
         });
-    }
+    },
 
     /**
      * Get subview by id
@@ -195,7 +189,7 @@ export default class View extends Backbone.View {
      */
     get_subview(id) {
         return this.subviews && this.subviews[id];
-    }
+    },
 
     destroy() {
         this.remove();
@@ -209,7 +203,7 @@ export default class View extends Backbone.View {
                 }
             });
         }
-    }
+    },
 
     /**
      * Removes all subviews and cleans up references in this.subviews.
@@ -221,7 +215,7 @@ export default class View extends Backbone.View {
             );
             delete this.subviews;
         }
-    }
+    },
 
     /**
      * Insert subview to specific selector and save it into cache.
@@ -265,7 +259,7 @@ export default class View extends Backbone.View {
         }
 
         return result || this;
-    }
+    },
 
     _register_subview(view) {
         if (!view) {
@@ -276,7 +270,7 @@ export default class View extends Backbone.View {
         view.parent_view = this;
         this.subviews = this.subviews || {};
         this.subviews[id] = view;
-    }
+    },
 
     _initialize_variables() {
         this.parent_view = null;
@@ -285,7 +279,7 @@ export default class View extends Backbone.View {
         this.children_ui = Object.assign({}, _result(this, 'children_ui'));
         this.ui_selectors = _cloneDeep(this.ui);
         this.children_ui_selectors = Object.assign({}, this.children_ui);
-    }
+    },
     /**
      * Redefine "render" and "remove" functions to work with subviews
      * @private
@@ -339,7 +333,7 @@ export default class View extends Backbone.View {
             this._delegate_children_events();
             return this;
         };
-    }
+    },
 
     /**
      * Detach each subviews, so that they do not loose their DOM events when
@@ -354,7 +348,7 @@ export default class View extends Backbone.View {
         /*if (this.on_hover_init) {
             this.$el.one('mouseenter', () => this.on_hover_init());
         }*/
-    }
+    },
 
     /**
      *
@@ -377,7 +371,7 @@ export default class View extends Backbone.View {
         return result === undefined
             ? this
             : result;
-    }
+    },
 
     /**
      *
@@ -403,7 +397,7 @@ export default class View extends Backbone.View {
                 ui_in_strings[name] = ui_selector;
             }
         );
-    }
+    },
 
     /**
      * @description
@@ -474,7 +468,7 @@ export default class View extends Backbone.View {
         });
 
         this[events_filed] = events;
-    }
+    },
 
     _delegate_children_events() {
         let events = Object.assign({}, _result(this, 'children_events'));
@@ -509,7 +503,7 @@ export default class View extends Backbone.View {
             });
         }
         return this;
-    }
+    },
 
     _get_children_view_to_process_event(event) {
         if (!this.subviews) {
@@ -541,7 +535,7 @@ export default class View extends Backbone.View {
         }
 
         return child_view;
-    }
+    },
 
     /**
      * Runs after render functions.
@@ -597,7 +591,7 @@ export default class View extends Backbone.View {
         this._show_subviews(subview_to_render);
 
         return on_rendered;
-    }
+    },
 
     /**
      *
@@ -631,7 +625,7 @@ export default class View extends Backbone.View {
                 });
             };
         }
-    }
+    },
 
     /**
      * Return a new subview instance.
@@ -647,7 +641,7 @@ export default class View extends Backbone.View {
         }
 
         return subview_creator.apply(this);
-    }
+    },
 
     _fill_ui() {
         const ui_in_strings = this.ui_selectors;
@@ -661,7 +655,7 @@ export default class View extends Backbone.View {
                 root[key] = this.$(value);
             }
         });
-    }
+    },
 
     _remove_subview(id) {
         const subview_to_remove = this.get_subview(id);
@@ -674,5 +668,5 @@ export default class View extends Backbone.View {
         delete this.subviews[id];
 
         return true;
-    }
-}
+    },
+});
