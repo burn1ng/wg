@@ -4,7 +4,7 @@ var value_attr = value !== undefined ? ' value="' + value + '"' : '';
 %>
 
 <label class="checkbox<%= (' ' + label_css) ? label_css : '' %>" title="<%= tooltip %>">
-    <input class="checkbox__input"
+    <input class="checkbox__input" js-input
            type="checkbox"<%= name_attr %><%= value_attr %>
     <%= checked ? 'checked' : '' %>
     <%= disabled ? 'disabled' : '' %>
