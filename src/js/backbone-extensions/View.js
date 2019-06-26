@@ -8,7 +8,7 @@ import {
 } from 'lodash-es';
 import $ from 'jquery';
 
-const VIEW_ID_ATTR = `data-view-item-id`;
+const VIEW_ID_ATTR = `view-id`;
 const UI_REGEXP = /(@[^\s^,]+(\.[^\s^,]+)*)/g;
 const DIRECTIVES_SELECTORS = {
     UI: '[ui]',
