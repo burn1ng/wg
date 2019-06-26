@@ -67,6 +67,7 @@ export default class SelectionEditor extends View {
     }
 
     _handle_save_click() {
+        this.destroy();
         this._internal_collection.apply_changes();
     }
 }

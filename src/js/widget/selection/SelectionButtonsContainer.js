@@ -12,7 +12,10 @@ export default class SelectionButtonsContainer extends View {
         super();
 
         this._collection = collection;
-        this.listenTo(this._collection, 'change:selected reset', this._recreate);
+        this._recreate_debounce = this.debounced(this._recreate);
+
+        this.listenTo(this._collection, 'change:selected', this._recreate_debounce);  /* avoids extra reflows */
+        this.listenTo(this._collection, 'reset', this._recreate);
     }
 
     class_name() {

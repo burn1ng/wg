@@ -17,8 +17,6 @@ export default class Widget extends View {
 
         this._initial_collection = collection;
         this._editor = null;
-
-        this.listenTo(this._initial_collection, 'reset', this._toggle_selection_editor);
     }
 
     class_name() {

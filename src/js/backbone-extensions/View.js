@@ -4,7 +4,8 @@ import {
     each as _each,
     cloneDeep as _cloneDeep,
     result as _result,
-    isFunction as _isFunction
+    isFunction as _isFunction,
+    debounce as _debounce
 } from 'lodash-es';
 import {
     invoke,
@@ -15,6 +16,7 @@ import {
 
 const VIEW_ID_ATTR = `view-id`;
 const UI_REGEXP = /(@[^\s^,]+(\.[^\s^,]+)*)/g;
+const STANDARD_DEBOUNCE = 100;
 const DIRECTIVES_SELECTORS = {
     UI: '[ui]',
     SUBVIEW: '[data-subview]'
@@ -127,6 +129,13 @@ export default Backbone.View.extend({
                 }
             });
         }
+    },
+
+    debounced(method, debounce = STANDARD_DEBOUNCE) {
+        return _debounce(
+            (...args) => method.call(this, ...args),
+            debounce
+        );
     },
 
     /**

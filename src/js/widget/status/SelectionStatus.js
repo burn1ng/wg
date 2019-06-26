@@ -12,6 +12,7 @@ export default class SelectionStatus extends View {
         super();
 
         this._initial_collection = collection;
+        this._refresh_ui_debounce = this.debounced(this._refresh_ui);
     }
 
     class_name() {
@@ -33,7 +34,8 @@ export default class SelectionStatus extends View {
     }
 
     on_rendered() {
-        this.listenTo(this._initial_collection, 'change:selected reset', this._refresh_ui);
+        this.listenTo(this._initial_collection, 'change:selected', this._refresh_ui_debounce); /* avoids extra reflows */
+        this.listenTo(this._initial_collection, 'reset', this._refresh_ui);
     }
 
     _refresh_ui() {

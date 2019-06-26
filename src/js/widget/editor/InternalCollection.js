@@ -31,13 +31,10 @@ export default class InternalCollection extends ICollection {
     }
 
     apply_changes() {
-        this._initial_collection.reset(
-            this.models.map(model => {
-                let attrs = Object.assign({}, model.attributes);
-                delete attrs.active;
-
-                return attrs;
-            })
-        );
+        this.models.forEach(model => {
+            if (model.has_changes) {
+                model.initial_model.selected = model.selected;
+            }
+        });
     }
 }

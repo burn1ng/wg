@@ -39,7 +39,27 @@ export default class InternalModel extends IModel {
         this.set('active', !!val);
     }
 
+    /**
+     *
+     * @return {Number|null}
+     */
     get count() {
         return get_int_from_str(this.title);
+    }
+
+    /**
+     *
+     * @return {Boolean}
+     */
+    get has_changes() {
+        return this._initial_model.selected !== this.selected;
+    }
+
+    /**
+     *
+     * @return {IModel}
+     */
+    get initial_model() {
+        return this._initial_model;
     }
 }
