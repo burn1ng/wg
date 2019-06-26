@@ -3,16 +3,19 @@ import FILTER_OPTIONS from './const/FILTER_OPTIONS';
 import {get_int_from_str} from '../../helpers/JsHelpers';
 
 export default class MatchedCollection extends Collection {
+    comparator() {
+        return 'title';
+    }
+
     /**
-     * @param{String?} option_id
+     * @param {Number?} option_id
      * @return {SelectionModel[]}
      */
     filter_models(option_id) {
-        let filter_id = parseInt(option_id);
-        let filter_count = this._get_filter_count(filter_id);
+        let filter_count = this._get_filter_count(option_id);
 
         return this.filter(
-            model => !filter_id || model.count > filter_count
+            model => !option_id || model.count > filter_count
         );
     }
 
