@@ -1,5 +1,5 @@
 import View from '../backbone-extensions/View';
-import SelectionButtons from './selection/SelectionButtons';
+import SelectionButtonsContainer from './selection/SelectionButtonsContainer';
 import SelectionStatus from './status/SelectionStatus';
 import SelectionEditor from './editor/SelectionEditor';
 
@@ -16,12 +16,9 @@ export default class Widget extends View {
         super();
 
         this._initial_collection = collection;
-        this._editor_window = null;
+        this._editor = null;
 
         this.listenTo(this._initial_collection, 'reset', this._toggle_selection_editor);
-
-        // for QA
-        window.initial = this._initial_collection;
     }
 
     class_name() {
@@ -44,29 +41,24 @@ export default class Widget extends View {
         this.$el.html(template());
     }
 
-    on_rendered() {
-        // temporary for development
-        this._toggle_selection_editor();
-    }
-
     subviewCreators() {
         return {
             'status'() {
                 return new SelectionStatus(this._initial_collection);
             },
             'buttons'() {
-                return new SelectionButtons(this._initial_collection);
+                return new SelectionButtonsContainer(this._initial_collection);
             }
         };
     }
 
     _toggle_selection_editor() {
-        if (this._editor_window) {
-            this._editor_window.destroy();
-            this._editor_window = null;
+        if (this._editor) {
+            this._editor.destroy();
+            this._editor = null;
         } else {
-            this._editor_window = new SelectionEditor(this._initial_collection);
-            this.append(this._editor_window);
+            this._editor = new SelectionEditor(this._initial_collection);
+            this.append(this._editor);
         }
     }
 }

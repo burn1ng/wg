@@ -1,9 +1,9 @@
 import svg_icon from './svg_icon.html';
 import './icon_styles.scss';
 
-import checkbox_template from './checkbox/checkbox.html';
-import checkbox_icon from './checkbox/ch.svg';
-import './checkbox/styles.scss';
+import checkbox_template from './checkbox.html';
+import checkbox_icon from './ch.svg';
+import './styles.scss';
 
 export const HTMLHelpers = {
     svg_icon(icon = {}) {

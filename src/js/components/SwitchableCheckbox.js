@@ -1,8 +1,8 @@
 import CheckboxBase from './CheckboxBase';
+
 import './switchable_checkbox_styles.scss';
 
 const COMPONENT_CSS = 'switchable-checkbox';
-
 const THEMES = {
     BLOCK: `${COMPONENT_CSS}--block`
 };
@@ -76,12 +76,12 @@ export default class SwitchableCheckbox extends CheckboxBase {
         this.checked = this._is_checked;
     }
 
-    get _is_checked() {
-        return this._props.some(prop => !!this._model.get(prop));
-    }
-
     _toggle_disable_state_props() {
         this.disabled = this._is_disabled_state;
+    }
+
+    get _is_checked() {
+        return this._props.some(prop => !!this._model.get(prop));
     }
 
     get _is_disabled_state() {

@@ -9,18 +9,18 @@ import './styles.scss';
 export default class SelectionSearch extends View {
     /**
      *
-     * @param {SelectionCollection} selection_collection
+     * @param {InternalCollection} internal_collection
      * @param {MatchedCollection} matched_collection
      */
-    constructor({selection_collection, matched_collection}) {
+    constructor({internal_collection, matched_collection}) {
         super();
 
-        this._selection_collection = selection_collection;
+        this._internal_collection = internal_collection;
         this._matched_collection = matched_collection;
 
         this._input_state = new UIComponentState();
         this._select_state = new UIComponentState();
-        this._search_state = new SearchState(selection_collection);
+        this._search_state = new SearchState(this._internal_collection);
     }
 
     class_name() {

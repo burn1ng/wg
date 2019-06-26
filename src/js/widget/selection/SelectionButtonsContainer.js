@@ -3,10 +3,10 @@ import SelectionButton from './button/SelectionButton';
 
 import './styles.scss';
 
-export default class SelectionButtons extends View {
+export default class SelectionButtonsContainer extends View {
     /**
      *
-     * @param {Collection} collection
+     * @param {ICollection} collection
      */
     constructor(collection) {
         super();
@@ -29,11 +29,11 @@ export default class SelectionButtons extends View {
         let selected_models = this._collection.get_selected();
 
         if (selected_models.length) {
-            let views = selected_models.map(
-                (model) => new SelectionButton({model})
+            this.append_list(
+                selected_models.map(
+                    model => new SelectionButton(model)
+                )
             );
-
-            this.append_list(views);
         } else {
             this.$el.append('N/A');
         }

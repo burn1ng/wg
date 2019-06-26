@@ -4,10 +4,14 @@ import template from './template.html';
 import './styles.scss';
 
 export default class SelectionStatus extends View {
+    /**
+     *
+     * @param {ICollection} collection
+     */
     constructor(collection) {
         super();
 
-        this._selection_collection = collection;
+        this._initial_collection = collection;
     }
 
     class_name() {
@@ -29,7 +33,7 @@ export default class SelectionStatus extends View {
     }
 
     on_rendered() {
-        this.listenTo(this._selection_collection, 'change:selected reset', this._refresh_ui);
+        this.listenTo(this._initial_collection, 'change:selected reset', this._refresh_ui);
     }
 
     _refresh_ui() {
@@ -38,27 +42,23 @@ export default class SelectionStatus extends View {
     }
 
     get _count() {
-        return this._selection_collection.get_selected().length;
+        return this._initial_collection.get_selected().length;
     }
 
     get _entities_name() {
-        let count = this._selection_collection.length;
         let entity_name = 'элeмент';
-        let string = '';
 
-        switch (count) {
+        switch (this._count) {
             case 0:
-                string = `${entity_name}ов`;
-                break;
+                return `${entity_name}ов`;
             case 1:
-                string = entity_name;
-                break;
+                return entity_name;
             case 2:
-                string = `${entity_name}a`;
-                break;
+            case 3:
+                return `${entity_name}a`;
+            default:
+                return '';
 
         }
-
-        return `${string}`;
     }
 }

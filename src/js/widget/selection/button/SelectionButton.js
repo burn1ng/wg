@@ -4,7 +4,11 @@ import template from './template.html';
 import './styles.scss';
 
 export default class SelectionButton extends View {
-    constructor({model}) {
+    /**
+     *
+     * @param {IModel}   model
+     */
+    constructor(model) {
         super();
 
         this._model = model;

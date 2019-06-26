@@ -5,17 +5,17 @@ import {get_int_from_str} from '../../../helpers/JsHelpers';
 export default class SearchCollection extends Collection {
     /**
      *
-     * @param {SelectionCollection} selection_collection
+     * @param {InternalCollection} internal_collection
      */
-    constructor(selection_collection) {
-        super(selection_collection.models);
+    constructor(internal_collection) {
+        super(internal_collection.models);
     }
     /**
      *
      * @param {String?} filter_text
-     * @returns {SelectionModel[]}
+     * @returns {InternalModel[]}
      */
-    search(filter_text) {
+    search_models(filter_text) {
         return this.filter(
             model => !filter_text || model.title.toLowerCase().includes(filter_text)
         );
@@ -23,7 +23,7 @@ export default class SearchCollection extends Collection {
 
     /**
      * @param {Number?} option_id
-     * @return {SelectionModel[]}
+     * @return {InternalModel[]}
      */
     filter_models(option_id) {
         let filter_count = this._get_filter_count(option_id);

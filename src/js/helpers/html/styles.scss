@@ -1,26 +1,4 @@
-@mixin svg_icon($fill: null, $color: null, $width: null, $height: null) {
-    svg {
-        @if $fill {
-            fill: $fill;
-        }
-
-        @if $color {
-            color: $color;
-        }
-
-        @if $width {
-            width: $width;
-        }
-
-        @if $height {
-            height: $height;
-        }
-
-        @content;
-    }
-}
-
-$indicator-size: 15px;
+@import "./../scss/variables";
 
 .checkbox {
     $self: &;

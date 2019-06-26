@@ -1,12 +1,17 @@
 import Backbone from './../plugins/backbone';
+import $ from 'jquery';
 import {
     each as _each,
     cloneDeep as _cloneDeep,
     result as _result,
-    isFunction as _isFunction,
-    isPlainObject as _isPlainObject
+    isFunction as _isFunction
 } from 'lodash-es';
-import $ from 'jquery';
+import {
+    invoke,
+    is_promise,
+    deep,
+    inspect_object
+} from './../helpers/JsHelpers';
 
 const VIEW_ID_ATTR = `view-id`;
 const UI_REGEXP = /(@[^\s^,]+(\.[^\s^,]+)*)/g;
@@ -14,93 +19,6 @@ const DIRECTIVES_SELECTORS = {
     UI: '[ui]',
     SUBVIEW: '[data-subview]'
 };
-
-function enter(obj, part, parts) {
-    if (!(part in obj)) {
-        throw new Error('Cannot find @ element: ' + parts.join('.'));
-    }
-
-    return obj[part];
-}
-
-function deep(obj, parts) {
-    let tmp = obj;
-
-    for (let index = 0; index < parts.length; ++index) {
-        tmp = enter(tmp, parts[index], parts);
-    }
-
-    return tmp;
-}
-
-function is_promise(instance) {
-    return instance instanceof Promise;
-}
-
-function inspect(obj, key, value, finder) {
-    if (!_isPlainObject(value)) {
-        return finder(obj, key, value);
-    }
-
-    obj = value;
-
-    Object.keys(obj).forEach(key => inspect(obj, key, obj[key], finder));
-}
-
-/**
- *
- * @param {Object}      initial_object
- * @param {function}    finder
- */
-function inspect_object(initial_object, finder) {
-    inspect(initial_object, null, initial_object, finder);
-}
-
-function invoke(context, fn, args) {
-    /**
-     *
-     * @private
-     * @param   {Object}            context
-     * @param   {function|string}   fn
-     * @param   {*}                 [args]
-     * @returns {*}
-     */
-    function _invoke(context, fn, args) {
-        context = context || null;
-
-        if (args !== void 0) {
-            args = [].slice.call(arguments, 2);
-        }
-
-        let _fn;
-
-        if (typeof fn === 'function') {
-            _fn = fn;
-        } else if (typeof fn === 'string' && context) {
-            _fn = context[fn];
-        }
-
-        if (_fn) {
-            return args
-                ? _fn.apply(context, args)
-                : _fn.call(context);
-        }
-    }
-
-    if (Array.isArray(context)) {
-        return context.map((context) => {
-            return _invoke(context, fn, args);
-        });
-    } else if (context instanceof $) {
-        return context
-            .map((index, context) => {
-                return _invoke($(context), fn, args);
-            })
-            .get();
-    } else {
-        return _invoke(context, fn, args);
-    }
-}
 
 export default Backbone.View.extend({
     preinitialize(props) {
@@ -280,6 +198,7 @@ export default Backbone.View.extend({
         this.ui_selectors = _cloneDeep(this.ui);
         this.children_ui_selectors = Object.assign({}, this.children_ui);
     },
+
     /**
      * Redefine "render" and "remove" functions to work with subviews
      * @private
@@ -326,9 +245,6 @@ export default Backbone.View.extend({
          * @returns {*}
          */
         this.delegateEvents = function () {
-            /*if (this._prevent_events) {
-                return;
-            }*/
             original_delegateEvents_method.apply(this);
             this._delegate_children_events();
             return this;
@@ -577,11 +493,7 @@ export default Backbone.View.extend({
             $placeholder.replaceWith(new_subview.$el);
         });
 
-        subview_to_render.forEach(subview => {
-            // if (subview._immediately_render !== false) {
-                subview.render();
-            // }
-        });
+        subview_to_render.forEach(subview => subview.render());
 
         this._fill_ui();
         this.rendered = true;

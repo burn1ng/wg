@@ -4,12 +4,12 @@ import SearchCollection from './SearchCollection.js';
 export default class SearchState extends Model {
     /**
      *
-     * @param {SelectionCollection} selection_collection
+     * @param {InternalCollection} internal_collection
      */
-    constructor(selection_collection) {
+    constructor(internal_collection) {
         super();
 
-        this._selection_collection = selection_collection;
+        this._internal_collection = internal_collection;
     }
 
     /**
@@ -19,7 +19,7 @@ export default class SearchState extends Model {
      * @param {Boolean} input_state
      * @param {Boolean} select_state
      *
-     * @return {SelectionModel[]}
+     * @return {InternalModel[]}
      */
     get_matched_models({
         filter_text,
@@ -27,13 +27,13 @@ export default class SearchState extends Model {
         input_state,
         select_state
     }) {
-        let search_collection = new SearchCollection(this._selection_collection);
-        let searched_models = search_collection.search(filter_text);
+        let search_collection = new SearchCollection(this._internal_collection);
+        let searched_models = search_collection.search_models(filter_text);
 
         if (input_state) {
             search_collection.reset(searched_models);
         } else {
-            search_collection.reset(this._selection_collection.models);
+            search_collection.reset(this._internal_collection.models);
         }
 
         if (select_state) {

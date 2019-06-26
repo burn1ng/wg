@@ -1,5 +1,5 @@
 import View from '../backbone-extensions/View';
-import {HTMLHelpers} from '../helpers/Helpers';
+import {HTMLHelpers} from '../helpers/html/HTMLHelpers';
 
 export default class CheckboxBase extends View {
     class_name() {
@@ -38,7 +38,9 @@ export default class CheckboxBase extends View {
     }
 
     render() {
-        this.$el.append(HTMLHelpers.checkbox(this._options));
+        this.$el.append(
+            HTMLHelpers.checkbox(this._options)
+        );
     }
 
     get checked() {

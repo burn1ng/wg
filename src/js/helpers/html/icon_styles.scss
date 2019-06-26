@@ -1,10 +1,11 @@
+@import "./../scss/variables";
 
 .icon {
     // if no class will be defined for svg (no fill property described)
     // then we will color this svg with the same color as parent property 'color', (same color as nearby <p>, <h1>, etc.)
     pointer-events: none; //IE and EDGE bug fix: https://github.com/jquery/jquery/issues/3877
     display: block; // important for correct height of parent wrapper
-    width: 15px;
-    height: 15px;
+    width: $indicator-size;
+    height: $indicator-size;
     fill: currentColor;
 }
