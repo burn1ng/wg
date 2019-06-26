@@ -23,15 +23,4 @@ export default class SelectionCollection extends ICollection {
 
         this._initial_collection = initial_collection;
     }
-
-    /**
-     *
-     * @param {String?} filter_text
-     * @returns {SelectionModel[]}
-     */
-    search(filter_text) {
-        return this.filter(
-            model => !filter_text || model.title.toLowerCase().includes(filter_text)
-        );
-    }
 }

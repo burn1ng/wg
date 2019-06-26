@@ -23,6 +23,17 @@ export default class MatchedCollection extends Collection {
     }
 
     /**
+     *
+     * @param {String?} filter_text
+     * @returns {SelectionModel[]}
+     */
+    search(filter_text) {
+        return this.filter(
+            model => !filter_text || model.title.toLowerCase().includes(filter_text)
+        );
+    }
+
+    /**
      * @param {Number?} option_id
      * @return {SelectionModel[]}
      */
