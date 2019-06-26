@@ -55,28 +55,28 @@ export default class SwitchableCheckbox extends CheckboxBase {
         this._theme = options.theme || '';
         this._disabled_state_props = options.disabled_state_props || [];
 
-        this.listenTo(this._model, this.constructor._get_events(this._props), this._toggle);
+        this.listenTo(this._model, this.constructor._get_events(this._props), this._toggle_checked_state);
 
         if (this._disabled_state_props.length) {
             this.listenTo(
                 this._model,
                 this.constructor._get_events(this._disabled_state_props),
-                this._toggle_disable_state_props
+                this._toggle_disable_state
             );
         }
 
     }
 
     on_rendered() {
-        this._toggle();
-        this._toggle_disable_state_props();
+        this._toggle_checked_state();
+        this._toggle_disable_state();
     }
 
-    _toggle() {
+    _toggle_checked_state() {
         this.checked = this._is_checked;
     }
 
-    _toggle_disable_state_props() {
+    _toggle_disable_state() {
         this.disabled = this._is_disabled_state;
     }
 
