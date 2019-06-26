@@ -15,7 +15,7 @@
     white-space: nowrap;
     user-select: none;
     color: #707275;
-    background: url("../../img/menu_pattern_bg.png") repeat top left;
+    background: url("../img/menu_pattern_bg.png") repeat top left;
     border: 1px solid rgba(200, 200, 200, 0.85);
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.04),
     0 0 9px rgba(0, 0, 0, 0.12),
@@ -39,7 +39,7 @@
                 content: '';
                 width: 12px;
                 height: 10px;
-                background-image: url("../../img/burger.png");
+                background-image: url("../img/burger.png");
             }
         }
     }
@@ -54,7 +54,7 @@
                 &::before {
                     width: 13px;
                     height: 6px;
-                    background-image: url("../../img/arrow.png");
+                    background-image: url("../img/arrow.png");
                 }
             }
         }

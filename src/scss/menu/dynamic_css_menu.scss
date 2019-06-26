@@ -17,7 +17,7 @@
             display: none;
 
             &::before {
-                background-image: url("../../img/burger.png");
+                background-image: url("../img/burger.png");
             }
         }
 
@@ -35,7 +35,7 @@
             &::before {
                 width: 13px;
                 height: 6px;
-                background-image: url("../../img/arrow.png");
+                background-image: url("../img/arrow.png");
             }
         }
     }

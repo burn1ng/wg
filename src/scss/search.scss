@@ -49,7 +49,7 @@ $search_button_border_size: 1px;
             display: inline-block;
             width: $search_find_icon_size;
             height: $search_find_icon_size;
-            background-image: url("./../img/search_icon.png");
+            background-image: url("../img/search_icon.png");
             content: '';
             position: absolute;
             top: 50%;
@@ -100,7 +100,7 @@ $search_button_border_size: 1px;
             cursor: pointer;
             width: $search_reset_size;
             height: $search_reset_size;
-            background: url('./../img/reset.png') no-repeat center center;
+            background: url("../img/reset.png") no-repeat center center;
         }
 
         &__field {
