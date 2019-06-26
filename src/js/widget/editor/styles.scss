@@ -35,6 +35,10 @@
         padding: 5px 0;
     }
 
+    &__controls {
+        display: inline-block;
+    }
+
     &__control {
         cursor: pointer;
         border: none;
