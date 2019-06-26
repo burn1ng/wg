@@ -1,7 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = ({is_dev_mode}) => {
-    console.log(is_dev_mode);
     return {
         test: /\.(sa|sc|c)ss$/,
         use: [
