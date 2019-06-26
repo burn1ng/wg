@@ -1,1 +1,4 @@
-last 1 version
+last 2 versions
+safari >= 7
+ios_saf > 7
+ie >= 11
