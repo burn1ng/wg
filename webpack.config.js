@@ -16,7 +16,7 @@ module.exports = {
     entry: {
         app: './src/index.js'
     },
-    devtool: 'inline-source-map',
+    devtool: is_dev_mode ? 'inline-source-map' : false,
     devServer: {
         contentBase: './dist',
         open: true,
@@ -39,8 +39,8 @@ module.exports = {
     module: {
         rules: [
             JsLoader,
-            css_loaders({is_dev_mode}),
             url_loader({is_dev_mode}),
+            css_loaders({is_dev_mode}),
             SvgLoader,
             TemplateLoader
         ],
@@ -52,7 +52,7 @@ module.exports = {
         ]
     },
     output: {
-        filename: '[name].bundle.js',
+        filename: is_dev_mode ? '[name].bundle.js' : '[name].bundle.[hash].js',
         path: path.resolve(__dirname, 'dist')
     }
 };

@@ -5,7 +5,7 @@ module.exports = ({is_dev_mode}) => {
             {
                 loader: 'url-loader',
                 options: {
-                    limit: 8192,
+                    limit: 2048,
                     name() {
                         if (is_dev_mode) {
                             return '[path][name].[ext]';

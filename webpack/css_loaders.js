@@ -15,7 +15,7 @@ module.exports = ({is_dev_mode}) => {
                 loader: 'css-loader',
                 options: {
                     sourceMap: is_dev_mode,
-                    importLoaders: 3
+                    importLoaders: 2
                 }
             },
             {
@@ -25,15 +25,9 @@ module.exports = ({is_dev_mode}) => {
                     sourceMap: is_dev_mode,
                     plugins: (loader) => [
                         require('postcss-preset-env')(),
-                        //require('cssnano')()
+                        require('cssnano')()
                     ]
                 },
-            },
-            {
-                loader: 'resolve-url-loader',
-                options: {
-                    sourceMap: is_dev_mode
-                }
             },
             {
                 loader: 'sass-loader',
