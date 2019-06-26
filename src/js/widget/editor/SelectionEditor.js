@@ -73,9 +73,13 @@ export default class SelectionEditor extends View {
     }
 
     _handle_save_click() {
-        this.destroy();
         this._initial_collection.reset(
-            this._selection_collection.models.map(model => model.attributes)
+            this._selection_collection.models.map(model => {
+                let attrs = Object.assign({}, model.attributes);
+                delete attrs.active;
+
+                return attrs;
+            })
         );
     }
 }

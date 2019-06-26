@@ -18,6 +18,7 @@ export default class MatchedCollection extends Collection {
 
         if (this._selection_collection) {
             this.listenTo(this._selection_collection, 'change:selected', this._toggle_active_state);
+            this._toggle_active_state();
         }
     }
 

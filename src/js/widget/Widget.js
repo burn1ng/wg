@@ -16,6 +16,9 @@ export default class Widget extends View {
         super();
 
         this._initial_collection = collection;
+        this._editor_window = null;
+
+        this.listenTo(this._initial_collection, 'reset', this._toggle_selection_editor);
 
         // for QA
         window.initial = this._initial_collection;
@@ -47,14 +50,12 @@ export default class Widget extends View {
     }
 
     subviewCreators() {
-        let collection = this._initial_collection;
-
         return {
             'status'() {
-                return new SelectionStatus(collection);
+                return new SelectionStatus(this._initial_collection);
             },
             'buttons'() {
-                return new SelectionButtons(collection);
+                return new SelectionButtons(this._initial_collection);
             }
         };
     }
