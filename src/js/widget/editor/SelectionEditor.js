@@ -16,7 +16,7 @@ export default class SelectionEditor extends View {
         this._initial_collection = initial_collection; //NOTE: dont' interact with initial collection;
 
         this._selection_collection = SelectionCollection.create_by_elements_collection(initial_collection);
-        this._matched_collection = new MatchedCollection(this._selection_collection.models);
+        this._matched_collection = new MatchedCollection(this._selection_collection);
 
         window.selection = this._selection_collection;
         window.matched = this._matched_collection;
