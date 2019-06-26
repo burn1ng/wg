@@ -1,26 +1,37 @@
-import Collection from '../../backbone-extensions/Collection';
-import ElementModel from '../ElementModel';
+import ICollection from '../ICollection';
+import SelectionModel from './SelectionModel';
 
-export default class SelectionCollection extends Collection {
+export default class SelectionCollection extends ICollection {
     /**
      *
-     * @param {ElementsCollection} collection
+     * @param {ICollection} collection
      * @return {SelectionCollection}
      */
     static create_by_elements_collection(collection) {
         return new this(
-            collection.get_selected().map(model => new ElementModel(model.attributes)),
+            collection.models.map(model => new SelectionModel(model)),
             collection
         );
     }
 
-    constructor(element_models, initial_collection) {
-        super(element_models);
+    get model() {
+        return SelectionModel;
+    }
+
+    constructor(selection_models, initial_collection) {
+        super(selection_models);
 
         this._initial_collection = initial_collection;
     }
 
-    get_selected() {
-        return this.models.filter(model => !!model.selected);
+    /**
+     *
+     * @param {String?} filter_text
+     * @returns {SelectionModel[]}
+     */
+    search(filter_text) {
+        return this.filter(
+            model => !filter_text || model.title.toLowerCase().includes(filter_text)
+        );
     }
 }

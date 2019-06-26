@@ -1,6 +1,6 @@
-import Model from '../backbone-extensions/Model';
+import IModel from './widget/IModel';
 
-export default class ElementModel extends Model {
+export default class ElementModel extends IModel {
     defaults() {
         return {
             selected: false

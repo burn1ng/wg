@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import Widget from './widget/Widget';
-import ElementsCollection from './widget/ElementsCollection';
+import ElementsCollection from './ElementsCollection';
 
 const APP_CONTAINER_CSS = '#app';
 
@@ -27,7 +27,7 @@ export default class Core {
     static _load_data() {
         let data = [];
 
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 300; i++) {
             data.push({
                 title: `Элемент ${i}`
             });

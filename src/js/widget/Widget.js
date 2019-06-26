@@ -1,6 +1,5 @@
 import View from '../backbone-extensions/View';
 import SelectionButtons from './selection/SelectionButtons';
-import SelectionCollection from './selection/SelectionCollection';
 import SelectionStatus from './status/SelectionStatus';
 import SelectionEditor from './editor/SelectionEditor';
 
@@ -40,6 +39,11 @@ export default class Widget extends View {
 
     render() {
         this.$el.html(template());
+    }
+
+    on_rendered() {
+        // temporary for development
+        this._toggle_selection_editor();
     }
 
     subviewCreators() {

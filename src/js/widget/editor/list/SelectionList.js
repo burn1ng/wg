@@ -10,6 +10,7 @@ export default class SelectionList extends View {
         super();
 
         this._matched_collection = matched_collection;
+        this.listenTo(this._matched_collection, 'reset', this._recreate_list)
     }
 
     class_name() {
@@ -17,6 +18,10 @@ export default class SelectionList extends View {
     }
 
     on_rendered() {
+        this._build_list();
+    }
+
+    _build_list() {
         let views = this._matched_collection.models.map(
             model => new SwitchableCheckbox({
                 props: ['selected'],
@@ -28,5 +33,10 @@ export default class SelectionList extends View {
         );
 
         this.append_list(views);
+    }
+
+    _recreate_list() {
+        this.empty();
+        this._build_list();
     }
 }

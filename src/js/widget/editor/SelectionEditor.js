@@ -3,6 +3,7 @@ import SelectionSearch from './search/SelectionSearch';
 import SelectionList from './list/SelectionList';
 import SelectionCollection from '../selection/SelectionCollection';
 import SelectionButtons from '../selection/SelectionButtons';
+import MatchedCollection from './MatchedCollection';
 
 import template from './template.html';
 import './styles.scss';
@@ -14,7 +15,12 @@ export default class SelectionEditor extends View {
 
         this._initial_collection = initial_collection; //NOTE: dont' interact with initial collection;
 
-        this._internal_collection = SelectionCollection.create_by_elements_collection(initial_collection);
+        this._selection_collection = SelectionCollection.create_by_elements_collection(initial_collection);
+        this._matched_collection = new MatchedCollection(this._selection_collection.models);
+
+        window.initial = this._initial_collection;
+        window.selection = this._selection_collection;
+        window.matched = this._matched_collection;
 
         //TODO: build new collection with new models copies which will overwrite initial collection after APPLY button
     }
@@ -44,13 +50,13 @@ export default class SelectionEditor extends View {
     }
 
     subviewCreators() {
-        let matched_collection = this._initial_collection; // TODO: build matched by initial
-        //let selection_collection = SelectionCollection.create_by_elements_collection(this._initial_collection);
+        let selection_collection = this._selection_collection;
+        let matched_collection = this._matched_collection;
 
         return {
             'search'() {
                 return new SelectionSearch({
-                    initial_collection: this._initial_collection,
+                    selection_collection,
                     matched_collection
                 });
             },
@@ -60,7 +66,7 @@ export default class SelectionEditor extends View {
                 })
             },
             'buttons'() {
-                return new SelectionButtons(this._internal_collection);
+                return new SelectionButtons(this._selection_collection);
             }
         };
     }

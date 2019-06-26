@@ -1,10 +1,10 @@
 <div class="selection-search__item">
     <span class="selection-search__label">Поиск</span>
-    <input type="text" class="selection-search__input" maxlength="30" placeholder="Ввведите имя элемента">
+    <input type="text" class="selection-search__input" maxlength="30" placeholder="Ввведите имя элемента" js-search-input>
 </div>
 <div class="selection-search__item">
     <span class="selection-search__label">Фильтр</span>
-    <select class="selection-search__select" name="filter">
+    <select class="selection-search__select" name="filter" js-select-filter>
         <% filter_options.forEach(function(option) { %>
         <option value="<%= option.id %>" <%= option.selected ? 'selected' : '' %>><%= option.title %></option>
         <% }); %>
