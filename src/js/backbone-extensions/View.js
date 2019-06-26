@@ -109,6 +109,12 @@ export default Backbone.View.extend({
         return this.subviews && this.subviews[id];
     },
 
+    /**
+     * @description Destroy view with subviews and detach DOM node
+     *
+     * Note: View will still exist as cached object
+     * to support self-rendering on any events/triggers
+     */
     destroy() {
         this.remove();
         this.is_destroyed = true;

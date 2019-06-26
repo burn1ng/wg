@@ -53,7 +53,7 @@ export default class Widget extends View {
     }
 
     _toggle_selection_editor() {
-        if (this._editor) {
+        if (this._editor && !this._editor.is_destroyed) {
             this._editor.destroy();
             this._editor = null;
         } else {
