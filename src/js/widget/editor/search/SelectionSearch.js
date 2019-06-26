@@ -1,7 +1,7 @@
 import View from '../../../backbone-extensions/View';
 import FILTER_OPTIONS from './../const/FILTER_OPTIONS';
 import UIComponentState from './UIComponentState';
-import FiltersStateModel from './FiltersStateModel';
+import SearchState from './SearchState';
 
 import template from './template.html';
 import './styles.scss';
@@ -20,7 +20,7 @@ export default class SelectionSearch extends View {
 
         this._input_state = new UIComponentState();
         this._select_state = new UIComponentState();
-        this._filters_state = new FiltersStateModel(selection_collection, matched_collection);
+        this._search_state = new SearchState(selection_collection);
     }
 
     class_name() {
@@ -55,7 +55,7 @@ export default class SelectionSearch extends View {
         this._set_select_state(option_id);
 
         this._matched_collection.reset(
-            this._filters_state.get_matched_models({
+            this._search_state.get_matched_models({
                 filter_text,
                 option_id,
                 input_state: this._input_state.active,

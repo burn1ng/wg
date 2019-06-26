@@ -1,7 +1,7 @@
 import Model from '../../../backbone-extensions/Model';
-import MatchedCollection from '../MatchedCollection';
+import SearchCollection from './SearchCollection.js';
 
-export default class FiltersStateModel extends Model {
+export default class SearchState extends Model {
     /**
      *
      * @param {SelectionCollection} selection_collection
@@ -27,25 +27,25 @@ export default class FiltersStateModel extends Model {
         input_state,
         select_state
     }) {
-        let matched_collection = new MatchedCollection(this._selection_collection);
-        let searched_models = matched_collection.search(filter_text);
+        let search_collection = new SearchCollection(this._selection_collection);
+        let searched_models = search_collection.search(filter_text);
 
         if (input_state) {
-            matched_collection.reset(searched_models);
+            search_collection.reset(searched_models);
         } else {
-            matched_collection.reset(this._selection_collection.models);
+            search_collection.reset(this._selection_collection.models);
         }
 
         if (select_state) {
-            matched_collection.reset(
-                matched_collection.filter_models(option_id)
+            search_collection.reset(
+                search_collection.filter_models(option_id)
             )
         } else {
-            matched_collection.reset(
+            search_collection.reset(
                 searched_models
             );
         }
 
-        return matched_collection.models;
+        return search_collection.models;
     }
 }

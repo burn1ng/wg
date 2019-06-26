@@ -22,40 +22,6 @@ export default class MatchedCollection extends Collection {
         }
     }
 
-    /**
-     *
-     * @param {String?} filter_text
-     * @returns {SelectionModel[]}
-     */
-    search(filter_text) {
-        return this.filter(
-            model => !filter_text || model.title.toLowerCase().includes(filter_text)
-        );
-    }
-
-    /**
-     * @param {Number?} option_id
-     * @return {SelectionModel[]}
-     */
-    filter_models(option_id) {
-        let filter_count = this._get_filter_count(option_id);
-
-        return this.filter(
-            model => !option_id || model.count > filter_count
-        );
-    }
-
-    /**
-     *
-     * @param {Number} filter_id
-     * @return {Number}
-     */
-    _get_filter_count(filter_id) {
-        let option = FILTER_OPTIONS.find(item => item.id === filter_id);
-
-        return get_int_from_str(option.title);
-    }
-
     _toggle_active_state() {
         let selected_models = [];
         let not_selected_models = [];
