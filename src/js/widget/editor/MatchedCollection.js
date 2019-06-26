@@ -6,7 +6,7 @@ const MAX_ACTIVE_MODELS = 3;
 
 export default class MatchedCollection extends Collection {
     comparator() {
-        return 'title';
+        return 'title'; //no dependency from data order, collection always sorted
     }
 
     constructor(selection_collection) {

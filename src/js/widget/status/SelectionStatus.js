@@ -29,7 +29,7 @@ export default class SelectionStatus extends View {
     }
 
     on_rendered() {
-        this.listenTo(this._selection_collection, 'change:selected', this._refresh_ui);
+        this.listenTo(this._selection_collection, 'change:selected reset', this._refresh_ui);
     }
 
     _refresh_ui() {

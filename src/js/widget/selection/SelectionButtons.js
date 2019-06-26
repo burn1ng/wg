@@ -12,7 +12,7 @@ export default class SelectionButtons extends View {
         super();
 
         this._collection = collection;
-        this.listenTo(this._collection, 'change:selected', this._recreate);
+        this.listenTo(this._collection, 'change:selected reset', this._recreate);
     }
 
     class_name() {

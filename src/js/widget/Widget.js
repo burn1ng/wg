@@ -10,7 +10,7 @@ import './styles.scss';
 export default class Widget extends View {
     /**
      *
-     * @param {ElementsCollection} collection
+     * @param {ICollection} collection
      */
     constructor(collection) {
         super();
@@ -64,9 +64,7 @@ export default class Widget extends View {
             this._editor_window.destroy();
             this._editor_window = null;
         } else {
-            this._editor_window = new SelectionEditor({
-                initial_collection: this._initial_collection
-            });
+            this._editor_window = new SelectionEditor(this._initial_collection);
             this.append(this._editor_window);
         }
     }

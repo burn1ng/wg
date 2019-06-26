@@ -7,7 +7,7 @@ export default class SelectionCollection extends ICollection {
      * @param {ICollection} collection
      * @return {SelectionCollection}
      */
-    static create_by_elements_collection(collection) {
+    static create_by_initial_collection(collection) {
         return new this(
             collection.models.map(model => new SelectionModel(model)),
             collection

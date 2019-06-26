@@ -10,12 +10,16 @@ import './styles.scss';
 
 
 export default class SelectionEditor extends View {
-    constructor({initial_collection}) {
+    /**
+     *
+     * @param {ICollection} initial_collection
+     */
+    constructor(initial_collection) {
         super();
 
         this._initial_collection = initial_collection; //NOTE: dont' interact with initial collection;
 
-        this._selection_collection = SelectionCollection.create_by_elements_collection(initial_collection);
+        this._selection_collection = SelectionCollection.create_by_initial_collection(initial_collection);
         this._matched_collection = new MatchedCollection(this._selection_collection);
 
         window.selection = this._selection_collection;
@@ -60,9 +64,7 @@ export default class SelectionEditor extends View {
                 });
             },
             'list'() {
-                return new SelectionList({
-                    matched_collection
-                })
+                return new SelectionList(matched_collection)
             },
             'buttons'() {
                 return new SelectionButtons(this._selection_collection);
@@ -71,6 +73,9 @@ export default class SelectionEditor extends View {
     }
 
     _handle_save_click() {
-        //TODO: take initial_collection and reset its models by internal collection state
+        this.destroy();
+        this._initial_collection.reset(
+            this._selection_collection.models.map(model => model.attributes)
+        );
     }
 }

@@ -1,12 +1,16 @@
 import View from '../../../backbone-extensions/View';
+import SwitchableCheckbox from '../../../components/SwitchableCheckbox';
 
 import './styles.scss';
-import SwitchableCheckbox from '../../../components/SwitchableCheckbox';
 
 const COMPONENT_CSS = 'selection-list';
 
 export default class SelectionList extends View {
-    constructor({matched_collection}) {
+    /**
+     *
+     * @param {MatchedCollection} matched_collection
+     */
+    constructor(matched_collection) {
         super();
 
         this._matched_collection = matched_collection;
