@@ -53,4 +53,16 @@ export default class CheckboxBase extends View {
             input.change();
         }
     }
+
+    get disabled() {
+        return this.ui.$input[0].disabled;
+    }
+
+    set disabled(value) {
+        let input = this.ui.$input;
+
+        if (this.disabled !== value) {
+            input.prop('disabled', value);
+        }
+    }
 }

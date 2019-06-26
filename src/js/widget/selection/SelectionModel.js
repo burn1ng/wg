@@ -4,6 +4,7 @@ import {get_int_from_str} from '../../helpers/JsHelpers';
 export default class SelectionModel extends Model {
     defaults() {
         return {
+            selected: false,
             active: true
         };
     }

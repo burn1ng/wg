@@ -34,37 +34,57 @@ export default class SwitchableCheckbox extends CheckboxBase {
         this._model.set(properties_to_set);
     }
 
+    static _get_events(props) {
+        return props.reduce((memo, prop) => (memo + `change:${prop} `), '');
+    }
+
     /**
      *
      * @param options
-     * @param {String[]} options.props
-     * @param {Model}    options.model
-     * @param {String}   [options.theme]
+     * @param {String[]}    options.props
+     * @param {Model}       options.model
+     * @param {String[]}    [options.disabled_state_props]
+     * @param {String}      [options.theme]
      */
     constructor(options) {
         super(options);
 
         this._props = options.props;
         this._model = options.model;
-        this._theme = options.theme;
 
-        this.listenTo(this._model, this._get_events(), this._toggle);
+        this._theme = options.theme || '';
+        this._disabled_state_props = options.disabled_state_props || [];
+
+        this.listenTo(this._model, this.constructor._get_events(this._props), this._toggle);
+
+        if (this._disabled_state_props.length) {
+            this.listenTo(
+                this._model,
+                this.constructor._get_events(this._disabled_state_props),
+                this._toggle_disable_state_props
+            );
+        }
+
     }
 
     on_rendered() {
         this._toggle();
-    }
-
-    _get_events() {
-        return this._props.reduce((memo, prop) => (memo + `change:${prop} `), '');
+        this._toggle_disable_state_props();
     }
 
     _toggle() {
-        this.checked = this._is_enabled;
+        this.checked = this._is_checked;
     }
 
-    get _is_enabled() {
+    get _is_checked() {
         return this._props.some(prop => !!this._model.get(prop));
     }
 
+    _toggle_disable_state_props() {
+        this.disabled = this._is_disabled_state;
+    }
+
+    get _is_disabled_state() {
+        return this._disabled_state_props.some(prop => !this._model.get(prop));
+    }
 }

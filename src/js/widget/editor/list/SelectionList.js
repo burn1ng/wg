@@ -26,6 +26,7 @@ export default class SelectionList extends View {
             model => new SwitchableCheckbox({
                 props: ['selected'],
                 model,
+                disabled_state_props: ['active'],
                 label_css: `${COMPONENT_CSS}__item`,
                 theme: SwitchableCheckbox.THEMES.BLOCK,
                 title: model.title
